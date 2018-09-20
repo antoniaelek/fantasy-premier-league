@@ -9,10 +9,10 @@ layout: default
   
       <div class="entry">
 	    <a href="{{ site.baseurl }}{{ post.url }}">
-          {% if mod4 == 1 %}<div style="display: table !important; width:100%; height:250px; display: table; text-align: center; background: #05f1ff url('{{ site.baseurl }}/images/cyan.jpg') no-repeat center;background-size: cover;">{% endif %}
-          {% if mod4 == 2 %}<div style="display: table !important; width:100%; height:250px; display: table; text-align: center; background: #ebff00 url('{{ site.baseurl }}/images/yellow.jpg') no-repeat center;background-size: cover;">{% endif %}
-          {% if mod4 == 3 %}<div style="display: table !important; width:100%; height:250px; display: table; text-align: center; background: #01fe87 url('{{ site.baseurl }}/images/green.jpg') no-repeat center;background-size: cover;">{% endif %}
-          {% if mod4 == 0 %}<div style="display: table !important; width:100%; height:250px; display: table; text-align: center; background: #ff025c url('{{ site.baseurl }}/images/magenta.jpg') no-repeat center;background-size: cover;">{% endif %}
+          {% if mod4 == 1 %}<div style="display: table !important; width:100%; height:200px; display: table; text-align: center; background: #05f1ff url('{{ site.baseurl }}/images/{{ post.title }}.jpg') no-repeat center;background-size: cover;">{% endif %}
+          {% if mod4 == 2 %}<div style="display: table !important; width:100%; height:200px; display: table; text-align: center; background: #ebff00 url('{{ site.baseurl }}/images/{{ post.title }}.jpg') no-repeat center;background-size: cover;">{% endif %}
+          {% if mod4 == 3 %}<div style="display: table !important; width:100%; height:200px; display: table; text-align: center; background: #01fe87 url('{{ site.baseurl }}/images/{{ post.title }}.jpg') no-repeat center;background-size: cover;">{% endif %}
+          {% if mod4 == 0 %}<div style="display: table !important; width:100%; height:200px; display: table; text-align: center; background: #ff025c url('{{ site.baseurl }}/images/{{ post.title }}.jpg') no-repeat center;background-size: cover;">{% endif %}
 			<div style="vertical-align: middle;display: table-cell;">
 				<h1 style="padding: 0 !important;margin: 0 !important;">
 					{{ post.title }}
