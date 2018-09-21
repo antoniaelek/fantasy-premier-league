@@ -33,7 +33,7 @@
 title: FantaSea
 subtitle: FPL Playground
 description: >- # this means to ignore newlines until "baseurl:"
-  Because out of all the unimportant things, football is the most important.
+  Because out of all the unimportant things, football is the most important
 author: Antonia Elek
 email: antoniaelek@hotmail.com
 avatar: assets/images/avatar.jpg
@@ -44,12 +44,15 @@ url: "https://aelek.me/" # the base hostname & protocol for your site
 
 # Social settings
 # Make sure to include the full url including protocol, e.g. https://github.com/chrisbobbe
+blog_url: https://aelek.me
 twitter_url: https://twitter.com/antoniaelek
-facebook_url: https://facebook.com/aelek
+facebook_url: # https://facebook.com/aelek
 googleplus_url:
 instagram_url:
 linkedin_url: https://www.linkedin.com/in/antoniaelek/
 github_url: https://github.com/antoniaelek
+stackoverflow_url: https://stackoverflow.com/users/5834989/antonia
+medium_url: https://medium.com/@aelek
 pinterest_url:
 slack_url:
 dribbble_url:

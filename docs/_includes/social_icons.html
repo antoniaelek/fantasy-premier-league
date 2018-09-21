@@ -1,5 +1,8 @@
 <!-- Social Icons -->
 <ul class="icons">
+  {%- if site.blog_url -%}
+  <li><a href="{{- site.blog_url -}}" class="icon fa-user"><span class="label">blog</span></a></li>
+  {%- endif -%}
   {%- if site.twitter_url -%}
   <li><a href="{{- site.twitter_url -}}" class="icon-b fa-twitter"><span class="label">Twitter</span></a></li>
   {%- endif -%}
@@ -17,6 +20,12 @@
   {%- endif -%}
   {%- if site.github_url -%}
   <li><a href="{{- site.github_url -}}" class="icon-b fa-github"><span class="label">GitHub</span></a></li>
+  {%- endif -%}
+  {%- if site.github_url -%}
+  <li><a href="{{- site.stackoverflow_url -}}" class="icon-b fa-stack-overflow"><span class="label">stackoverflow</span></a></li>
+  {%- endif -%}
+  {%- if site.medium_url -%}
+  <li><a href="{{- site.medium_url -}}" class="icon-b fa-medium"><span class="label">medium</span></a></li>
   {%- endif -%}
   {%- if site.pinterest_url -%}
   <li><a href="{{- site.pinterest_url -}}" class="icon-b fa-pinterest"><span class="label">Pinterest</span></a></li>
