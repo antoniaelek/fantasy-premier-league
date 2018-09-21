@@ -1,26 +1,18 @@
 ---
-layout: default
+layout: home
+title: Home
+cover-photo: assets/images/banner.jpg
+cover-photo-alt: example cover photo
+auto-header: none
+icon: fa-home
+order: 1
 ---
 
-<div class="posts">
-  {% for post in site.posts %}
-	{% assign mod4 = forloop.index | modulo: 4 %}
-    <article class="post">
-  
-      <div class="entry">
-	    <a href="{{ site.baseurl }}{{ post.url }}">
-          {% if mod4 == 1 %}<div style="display: table !important; width:100%; height:200px; display: table; text-align: center; background: #05f1ff url('{{ site.baseurl }}/images/{{ post.title }}.jpg') no-repeat center;background-size: cover;">{% endif %}
-          {% if mod4 == 2 %}<div style="display: table !important; width:100%; height:200px; display: table; text-align: center; background: #ebff00 url('{{ site.baseurl }}/images/{{ post.title }}.jpg') no-repeat center;background-size: cover;">{% endif %}
-          {% if mod4 == 3 %}<div style="display: table !important; width:100%; height:200px; display: table; text-align: center; background: #01fe87 url('{{ site.baseurl }}/images/{{ post.title }}.jpg') no-repeat center;background-size: cover;">{% endif %}
-          {% if mod4 == 0 %}<div style="display: table !important; width:100%; height:200px; display: table; text-align: center; background: #ff025c url('{{ site.baseurl }}/images/{{ post.title }}.jpg') no-repeat center;background-size: cover;">{% endif %}
-			<div style="vertical-align: middle;display: table-cell;">
-				<h1 style="padding: 0 !important;margin: 0 !important;">
-					{{ post.title }}
-				</h1>
-			</div>
-          </div>
-		</a>
-      </div>
-    </article>
-  {% endfor %}
-</div>
+<header>
+  <h2 class="alt">Fantasy Premier League Playground.</h2>
+  <p>Because out of all the unimportant things, football is the most important.</p>
+</header>
+
+<footer>
+  <a href="#comparison" class="icon fa-chevron-down scrolly"></a>
+</footer>
