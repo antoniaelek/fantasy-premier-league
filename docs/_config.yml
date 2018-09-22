@@ -30,8 +30,8 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: FantaSea
-subtitle: FPL Playground
+title: FPL
+subtitle: stats & analysis
 description: >- # this means to ignore newlines until "baseurl:"
   Because out of all the unimportant things, football is the most important
 author: Antonia Elek
@@ -39,7 +39,7 @@ email: antoniaelek@hotmail.com
 avatar: assets/images/avatar.png
 
 # You'll want to customize url and baseurl for your own site:
-baseurl: "/fantasy-premier-league" # the subpath of your site, e.g. /blog
+baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://aelek.me/" # the base hostname & protocol for your site
 
 # Social settings

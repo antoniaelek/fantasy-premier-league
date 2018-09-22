@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Points Per Cost Analysis
+title: Points Per Cost
 icon: fa-chart-area
 order: 3
 ---
@@ -8,9 +8,9 @@ order: 3
 <body>
 	<table stlye="width: 100%">
 		<tr>
-			<td align="left">
-				<select id="vpc_dropdown" style="align: left; margin-left: 30px;">
-					<option value="{{ site.baseurl }}/assets/bokeh/value_per_cost">All</option>
+			<td align="middle">
+				<select id="vpc_dropdown" class="pldropdown" style="padding: 0 50px 0 0px;">
+					<option value="{{ site.baseurl }}/assets/bokeh/value_per_cost">All Positions</option>
 					<option value="{{ site.baseurl }}/assets/bokeh/value_per_cost_gkp">Goalkeepers</option>
 					<option value="{{ site.baseurl }}/assets/bokeh/value_per_cost_def">Defenders</option>
 					<option value="{{ site.baseurl }}/assets/bokeh/value_per_cost_mid">Midfielders</option>
@@ -21,7 +21,7 @@ order: 3
 		<tr>
 			<td align="middle">
 				<iframe id="vpc_plot" src="{{ site.baseurl }}/assets/bokeh/value_per_cost.html"
-					width="100%"
+					width="610px"
 					height="610px"
 					scrolling="no"
 					seamless="seamless"
