@@ -19,6 +19,47 @@ def get_player_data(base_path, player, season="2018-19", range_start=1, range_en
     return df
 
 
+def calc_goals_conceded_per_game(row):
+    val = 0
+    if row['minutes'] > 0:
+        val = row['goals_conceded'] / (row['minutes'] / 90)
+    return val
+
+
+def calc_saves_per_game(row):
+    val = 0
+    if row['minutes'] > 0:
+        val = row['saves'] / (row['minutes'] / 90)
+    return val
+
+
+def calc_in_game_stats(row):
+    if row['position'] == 'Goalkeeper':
+        val = row['clean_sheets']*4 + row['saves_per_game']/3 - row['goals_conceded_per_game']/2 + row['penalties_saved']*2
+    elif row['position'] == 'Defender':
+        val = row['clean_sheets']*4 - row['own_goals'] - row['goals_conceded_per_game']/2
+    elif row['position'] == 'Midfielder':
+        val = row['goals_scored']*5 + row['assists']*3 - row['penalties_missed']
+    elif row['position'] == 'Forward':
+        val = row['goals_scored']*4 + row['assists']*3 - row['penalties_missed']
+    return val
+
+
+def calc_basic_stats(row):
+    if row['minutes'] == 0:
+        val = 0
+    else:
+        val = (row['total_points'] + row['bonus']) / (row['minutes'] / 90) + row['points_per_game'] + row['dreamteam_count']
+    return round(val, 2)
+
+
+def calc_popularity(row):
+    #transfer_balance = row['transfers_in'] - row['transfers_out']
+    #transfer_balance_event = row['transfers_in_event'] - row['transfers_out_event']
+    val = (row['transfer_balance'] + row['transfer_balance_event'] + row['selected_by_percent'] * 50000)
+    return round(val, 2)
+
+
 def map_position(row):
     if row['element_type'] == 1:
         val = 'Goalkeeper'
@@ -110,19 +151,16 @@ def get_cumulative_data(base_path, season="2018-19"):
     alldf["position"] = alldf.apply(map_position, axis=1)
     alldf["avail_status"] = alldf.apply(map_status, axis=1)
     alldf["team_name"] = alldf.apply(map_team, axis=1)
-    alldf['basic_stats'] = round(
-        (alldf['total_points'] + alldf['bonus']) / (alldf['minutes'] / 90) + alldf['points_per_game'] + alldf[
-            'dreamteam_count'], 2)
-    alldf['quality'] = round(
-        (alldf['creativity'] + alldf['ict_index'] + alldf['threat']) * 0.2 + alldf['influence'] * 0.2 + alldf[
-            'form'] * 0.6, 2)
-    alldf['in_game_stats'] = round((alldf['goals_scored'] - alldf['goals_conceded'] + alldf['assists'] + alldf[
-        'clean_sheets'] + alldf['saves'] - alldf['own_goals'] - alldf['penalties_missed'] + alldf['penalties_saved'] -
-                                    alldf['yellow_cards'] * 0.2 - alldf['red_cards'] * 0.6) / (alldf['minutes'] / 90),
-                                   2)
-    alldf['popularity'] = round(((alldf['transfers_in'] - alldf['transfers_out']) + (
-            alldf['transfers_in_event'] - alldf['transfers_out_event']) + alldf['selected_by_percent'] * 50000) / 1000,
-                                2)
+    alldf['basic_stats'] = alldf.apply(calc_basic_stats, axis=1)
+    alldf['quality'] = alldf['ict_index'] + alldf['form']
+
+    alldf['goals_conceded_per_game'] = alldf.apply(calc_goals_conceded_per_game, axis=1)
+    alldf['saves_per_game'] = alldf.apply(calc_saves_per_game, axis=1)
+    alldf['in_game_stats'] = alldf.apply(calc_in_game_stats, axis=1)
+
+    alldf['transfer_balance'] = alldf['transfers_in'] - alldf['transfers_out']
+    alldf['transfer_balance_event'] = alldf['transfers_in_event'] - alldf['transfers_out_event']
+    alldf['popularity'] = alldf.apply(calc_popularity, axis=1)
 
     return alldf
 
