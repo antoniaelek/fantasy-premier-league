@@ -54,9 +54,7 @@ def calc_basic_stats(row):
 
 
 def calc_popularity(row):
-    #transfer_balance = row['transfers_in'] - row['transfers_out']
-    #transfer_balance_event = row['transfers_in_event'] - row['transfers_out_event']
-    val = (row['transfer_balance'] + row['transfer_balance_event'] + row['selected_by_percent'] * 50000)
+    val = (row['transfers_balance'] + row['transfers_balance_event'] + row['selected_by_percent'] * 50000)
     return round(val, 2)
 
 
@@ -136,6 +134,10 @@ def map_code_to_str(row):
     return str(row['code'])
 
 
+def map_id_to_str(row):
+    return str(row['id'])
+
+
 def get_cumulative_data(base_path, season="2018-19"):
     # all data csv path
     all_path = base_path + "data/" + season + "/players_raw.csv"
@@ -143,10 +145,12 @@ def get_cumulative_data(base_path, season="2018-19"):
     # Get all players
     alldf = pandas.read_csv(all_path)
     alldf["code2"] = alldf.apply(map_code_to_str, axis=1)
+    alldf["id2"] = alldf.apply(map_id_to_str, axis=1)
     alldf["lower_name"] = alldf["first_name"].str.lower() + " " + alldf["second_name"].str.lower()
     alldf["full_name"] = alldf["first_name"] + " " + alldf["second_name"]
-    alldf["full_name2"] = alldf["first_name"] + "_" + alldf["second_name"]
-    alldf["full_name3"] = alldf["first_name"] + " " + alldf["second_name"] + "_" + alldf["code2"]
+    alldf["full_name_underscore"] = alldf["first_name"] + "_" + alldf["second_name"]
+    alldf["full_name_code"] = alldf["first_name"] + " " + alldf["second_name"] + "_" + alldf["code2"]
+    alldf["full_name_id"] = alldf["first_name"] + "_" + alldf["second_name"] + "_" + alldf["id2"]
     alldf["price"] = alldf["now_cost"] / 10
     alldf["position"] = alldf.apply(map_position, axis=1)
     alldf["avail_status"] = alldf.apply(map_status, axis=1)
@@ -158,8 +162,8 @@ def get_cumulative_data(base_path, season="2018-19"):
     alldf['saves_per_game'] = alldf.apply(calc_saves_per_game, axis=1)
     alldf['in_game_stats'] = alldf.apply(calc_in_game_stats, axis=1)
 
-    alldf['transfer_balance'] = alldf['transfers_in'] - alldf['transfers_out']
-    alldf['transfer_balance_event'] = alldf['transfers_in_event'] - alldf['transfers_out_event']
+    alldf['transfers_balance'] = alldf['transfers_in'] - alldf['transfers_out']
+    alldf['transfers_balance_event'] = alldf['transfers_in_event'] - alldf['transfers_out_event']
     alldf['popularity'] = alldf.apply(calc_popularity, axis=1)
 
     return alldf
