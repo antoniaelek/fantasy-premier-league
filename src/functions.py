@@ -6,19 +6,6 @@ import glob
 import pandas
 
 
-def get_player_data(base_path, player, season="2018-19", range_start=1, range_end=-1):
-    pl_path = base_path + "data/" + season + "/players/" + player + "/gw.csv"
-    # Get player dataset
-    df = pandas.read_csv(open(pl_path, 'r'))
-    x = [x * 1 for x in range(1, len(df) + 1)]
-    df['gw'] = x
-    if range_end == -1:
-        range_end = len(df['gw'])
-
-    df = df[range_start - 1:range_end]
-    return df
-
-
 def calc_goals_conceded_per_game(row):
     val = 0
     if row['minutes'] > 0:
@@ -136,6 +123,18 @@ def map_code_to_str(row):
 
 def map_id_to_str(row):
     return str(row['id'])
+
+
+def get_player_data(base_path, player, season="2018-19", range_start=1, range_end=-1):
+    pl_path = base_path + "data/" + season + "/players/" + player + "/gw.csv"
+    df = pandas.read_csv(open(pl_path, 'r'))
+    x = [x * 1 for x in range(1, len(df) + 1)]
+    df['gw'] = x
+    if range_end == -1:
+        range_end = len(df['gw'])
+
+    df = df[range_start - 1:range_end]
+    return df
 
 
 def get_cumulative_data(base_path, season="2018-19"):
