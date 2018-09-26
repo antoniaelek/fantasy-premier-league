@@ -1,10 +1,5 @@
-#=============================================================================#
-#                                    Functions                                #
-#=============================================================================#
-
 import glob
 import pandas
-
 
 def calc_goals_conceded_per_game(row):
     val = 0
@@ -168,31 +163,49 @@ def get_cumulative_data(base_path, season="2018-19"):
     return alldf
 
 
-def points_per_appearance(base_path, season):
-    # data by gws for each player
-    df0 = pandas.DataFrame()
+def get_gameweek_data(base_path, season, curr_gw):
+    df1 = pandas.DataFrame()
     for f in glob.glob(base_path + 'data/'+season+'/gws/*'):
-        dftmp = pandas.read_csv(f, encoding='ansi')
-        dftmp['name'] = dftmp['name'].str.replace('_', ' ')
-        df0 = df0.append(dftmp)
+        gw = int(f[-5:-4])
+        df_tmp = pandas.read_csv(f, encoding='ansi')
+        df_tmp['name'] = df_tmp['name'].str.replace('_', ' ')
+        df_tmp['gw'] = gw
+        df_tmp['bonus_weighted'] = df_tmp['bonus']/(curr_gw + 1 - gw)
+        df_tmp['bps_weighted'] = df_tmp['bps']/(curr_gw + 1 - gw)
+        df_tmp['total_points_weighted'] = df_tmp['total_points']/(curr_gw + 1 - gw)
+        df_tmp['gw'] = df_tmp['gw']/(curr_gw + 1 - gw)
+        df1 = df1.append(df_tmp)
+    return df1
 
-    # group by player and calculate ratio - df2
-    df2 = df0.groupby(['name']).median()
-    df2['value'] = df2['value'] / 10
-    df2['vpc_ratio'] = df2['total_points'] / df2['value']
-    df2 = df2[(df2['total_points'] > 0) & (df2['vpc_ratio'] > 0)]
-    df2['name'] = df2.index.values
-    df2 = df2.set_index('name')
-    df2 = df2.sort_values(['name'], ascending=True)
 
-    # add cleaned data - df1
-    df1 = pandas.read_csv(base_path + 'data/'+season+'/players_raw.csv', encoding='utf8')
+def get_raw_data(base_path, season):
+    df1 = pandas.read_csv(base_path + 'data/' + season + '/players_raw.csv', encoding='utf8')
     df1['name'] = df1['first_name'] + ' ' + df1['second_name']
     df1["position"] = df1.apply(map_position, axis=1)
     df1 = df1.sort_values(['name'], ascending=True)
+    return df1
+
+
+def calc_vpc(base_path, season, currgw):
+    # cleaned data - df1
+    df1 = get_raw_data(base_path, season)
+    df1['value'] = df1['now_cost']/10
+    df1['id_str'] = df1.apply(map_id_to_str, axis=1)
+    df1['display_name'] = df1['name']
+    df1['name'] = df1['name'] + ' ' + df1['id_str']
+    df1 = df1[['value', 'name', 'position', 'display_name']]
+
+    # data by gws for each player
+    df2 = get_gameweek_data(base_path, season, currgw)
+    df2 = df2[['name', 'bonus', 'bonus_weighted', 'bps', 'bps_weighted', 'total_points', 'total_points_weighted']]
+
+    # df2.to_csv('in.csv', sep='\t')
+    # group by player and calculate ratio
+    df2 = df2.groupby(['name']).mean()
 
     # merge
     df = pandas.merge(df1, df2, on='name', how='outer')
-    df.to_csv('out.csv', encoding='utf8')
+    df['vpc_ratio'] = df['total_points'] / df['value']
+    df['vpc_ratio_weighted'] = df['total_points_weighted'] / df['value']
 
     return df
