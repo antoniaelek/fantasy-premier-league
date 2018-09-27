@@ -9,9 +9,16 @@
 		<title>FPL stats & analysis</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}">
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome-all.css') }}">
+		<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}"/>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome-all.css') }}"/>
+
+        <link
+            href="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css"
+            rel="stylesheet" type="text/css">
+        <link
+            href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.css"
+            rel="stylesheet" type="text/css">
 	</head>
 	<body class="is-preload">
 
@@ -90,7 +97,7 @@
 					</section>
 
 				<!-- Comparison -->
-					<section id="comparison" class="two">
+					<section id="comparison">
 						<div class="container">
 
 							<header>
@@ -105,20 +112,17 @@
 						</div>
 					</section>
 
-				<!-- About Me -->
-					<section id="points-per-cost" class="three">
+                <!-- Points Per Cost -->
+					<section id="points-per-cost">
 						<div class="container">
 
 							<header>
 								<h2>Points Per Cost</h2>
 							</header>
 
-							<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna. Ridiculus
-							ultricies curae quis et rhoncus velit. Lobortis elementum aliquet nec vitae
-							laoreet eget cubilia quam non etiam odio tincidunt montes. Elementum sem
-							parturient nulla quam placerat viverra mauris non cum elit tempus ullamcorper
-							dolor. Libero rutrum ut lacinia donec curae mus vel quisque sociis nec
-							ornare iaculis.</p>
+                            <div align="center">
+                                {{ bokS|indent(4)|safe }}
+                            </div>
 
 						</div>
 					</section>
@@ -138,6 +142,9 @@
 			</div>
 
 		<!-- Scripts -->
+            <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
+	    	<script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.js"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 			<script src="static/js/jquery.min.js"></script>
 			<script src="static/js/jquery.scrolly.min.js"></script>
 			<script src="static/js/jquery.scrollex.min.js"></script>
