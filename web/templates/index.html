@@ -12,6 +12,7 @@
 		<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}"/>
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome-all.css') }}"/>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}"/>
 
         <link
             href="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css"
@@ -104,10 +105,11 @@
 								<h2>Comparison</h2>
 							</header>
 
-							<p>Vitae natoque dictum etiam semper magnis enim feugiat convallis convallis
-							egestas rhoncus ridiculus in quis risus amet curabitur tempor orci penatibus.
-							Tellus erat mauris ipsum fermentum etiam vivamus eget. Nunc nibh morbi quis
-							fusce hendrerit lacus ridiculus.</p>
+                            <div align="center">
+                                {% with baseurl="static" %}
+                                    {% include "compare.html" %}
+                                {% endwith %}
+                            </div>
 
 						</div>
 					</section>
@@ -120,8 +122,12 @@
 								<h2>Points Per Cost</h2>
 							</header>
 
-                            <div align="center">
-                                {{ bokS|indent(4)|safe }}
+                            <div class="row" align="center">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    {{ vpc|indent(4)|safe }}
+                                </div>
+                                <div class="col-md-3"></div>
                             </div>
 
 						</div>

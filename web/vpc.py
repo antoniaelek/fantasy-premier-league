@@ -1,8 +1,9 @@
 from bokeh.models import CategoricalColorMapper
 from bokeh.io import *
 from bokeh.plotting import figure
-from bokeh.layouts import column
+from bokeh.layouts import gridplot, column
 from bokeh.models import ColumnDataSource
+from bokeh.models.sources import AjaxDataSource
 from bokeh.models.widgets import Select
 from bokeh.palettes import d3
 import functions
@@ -20,9 +21,9 @@ df_fwd = df[df.position == 'Forward']
 
 palette = d3['Category10'][4]
 color_map = CategoricalColorMapper(factors=['Goalkeeper', 'Defender', 'Midfielder', 'Forward'], palette=palette)
-select = Select(options=['All players', 'Goalkeepers', 'Defenders', 'Midfielders', 'Forwards'])
+select = Select(options=['All', 'Goalkeepers', 'Defenders', 'Midfielders', 'Forwards'])
 
-# Set data source for visual
+# set data source for visual
 source = ColumnDataSource(data=dict(
     names=df['display_name'],
     position=df['position'],
@@ -71,4 +72,4 @@ p.hover.tooltips = [
 p.scatter(x='now_cost', y='points_per_game', radius='circle_size', fill_alpha='fill_alpha',
           color={'field': 'position', 'transform': color_map}, source=source)
 
-curdoc().add_root(column(select, p, width=800))
+curdoc().add_root(column(select, p, width=600, height=600, sizing_mode="scale_width"))
