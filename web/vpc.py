@@ -3,6 +3,7 @@ from bokeh.io import *
 from bokeh.plotting import figure
 from bokeh.layouts import gridplot, column
 from bokeh.models import ColumnDataSource
+from bokeh.models.sources import AjaxDataSource
 from bokeh.models.widgets import Select
 from bokeh.palettes import d3
 import functions
