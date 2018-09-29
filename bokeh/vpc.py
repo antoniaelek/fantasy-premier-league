@@ -1,5 +1,5 @@
 from bokeh.models import CategoricalColorMapper
-from bokeh.io import *
+from bokeh.io import curdoc
 from bokeh.plotting import figure
 from bokeh.layouts import gridplot, column
 from bokeh.models import ColumnDataSource

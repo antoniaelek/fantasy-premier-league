@@ -167,7 +167,7 @@ def get_gameweek_data(base_path, season, curr_gw):
     df1 = pandas.DataFrame()
     for f in glob.glob(base_path + 'data/'+season+'/gws/*'):
         gw = int(f[-5:-4])
-        df_tmp = pandas.read_csv(f, encoding='ansi')
+        df_tmp = pandas.read_csv(f, encoding='latin_1')
         df_tmp['name'] = df_tmp['name'].str.replace('_', ' ')
         df_tmp['gw'] = gw
         df_tmp['bonus_weighted'] = df_tmp['bonus']/(curr_gw + 1 - gw)
