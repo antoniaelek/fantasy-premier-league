@@ -62,7 +62,7 @@
 				document.getElementById("vpc_plot").src = newSrc + ".html";		
 			});
 			
-						$("#pldropdown1").change(function(){
+			$("#pldropdown1").change(function(){
 				var newSrc = $(this).val();
 				var startIdx = newSrc.lastIndexOf("_");
 				var endIdx = newSrc.length;
