@@ -5,14 +5,19 @@ from bokeh.layouts import gridplot, column
 from bokeh.models import ColumnDataSource
 from bokeh.models.widgets import Select
 from bokeh.palettes import d3
+import os
 import functions
 
-# Get data
-base_path = "C:/Users/aelek/source/antoniaelek/fantasy-premier-league/"
-season = "2018-19"
-gw_cnt = 6
+# Parameters
+SEASON = "2018-19"
+CURR_GW = 6
 
-df = functions.calc_vpc(base_path, season, gw_cnt)
+# Get data
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_top
+APP_STATIC = os.path.join(APP_ROOT, 'static')
+base_path = APP_STATIC + "/"
+
+df = functions.calc_vpc(base_path, SEASON, CURR_GW)
 df_gkp = df[df.position == 'Goalkeeper']
 df_def = df[df.position == 'Defender']
 df_mid = df[df.position == 'Midfielder']
@@ -60,13 +65,26 @@ select.on_change('value', update_data)
 tools = "hover,crosshair,pan,wheel_zoom,zoom_in,zoom_out,box_zoom,undo,redo,reset,tap,save,box_select,poly_select,lasso_select,"
 
 p = figure(tools=tools, x_axis_label="cost", y_axis_label="avg points", x_range=(3, 15), y_range=(0, 10))
-p.hover.tooltips = """
-<table>
-<tr style="line-height: 0.8; font-size: 17px; font-weight: bold; padding:0; margin: 0"><td colspan=2">@names</td></tr>
-<tr style="line-height: 0.8; font-size: 12px; padding:0; margin: 0"><td style="font-weight: bold;">Position</td><td>@position</td></tr>
-<tr style="line-height: 0.8; font-size: 12px; padding:0; margin: 0"><td style="font-weight: bold;">Cost</td><td>@now_cost &pound;</td></tr>
-<tr style="line-height: 0.8; font-size: 12px; padding:0; margin: 0"><td style="font-weight: bold;">Avg points</td><td>@points_per_game</td></tr>
-<tr style="line-height: 0.8; font-size: 12px; padding:0; margin: 0"><td style="font-weight: bold;">Value per cost</td><td>@vpc_ratio</td></tr>
+p.hover.tooltips = """<table>
+<tr style="line-height: 0.8; font-size: 17px; font-weight: bold; padding:0; margin: 0">
+    <td colspan=2">@names</td>
+</tr>
+<tr style="line-height: 0.8; font-size: 12px; padding:0; margin: 0">
+    <td style="font-weight: bold;">Position</td>
+    <td>@position</td>
+</tr>
+<tr style="line-height: 0.8; font-size: 12px; padding:0; margin: 0">
+    <td style="font-weight: bold;">Cost</td>
+    <td>@now_cost &pound;</td>
+</tr>
+<tr style="line-height: 0.8; font-size: 12px; padding:0; margin: 0">
+    <td style="font-weight: bold;">Avg points</td>
+    <td>@points_per_game</td>
+</tr>
+<tr style="line-height: 0.8; font-size: 12px; padding:0; margin: 0">
+    <td style="font-weight: bold;">Value per cost</td>
+    <td>@vpc_ratio</td>
+</tr>
 </table>
 """
 
