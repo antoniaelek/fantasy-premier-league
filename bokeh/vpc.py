@@ -14,8 +14,7 @@ CURR_GW = 6
 
 # Get data
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_top
-APP_STATIC = os.path.join(APP_ROOT, 'static')
-BASE_PATH = APP_STATIC + "/"
+BASE_PATH = APP_ROOT + "/"
 
 df = functions.calc_vpc(BASE_PATH, SEASON, CURR_GW)
 df_gkp = df[df.position == 'Goalkeeper']
