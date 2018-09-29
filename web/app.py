@@ -1,9 +1,5 @@
 from flask import Flask, render_template, request
-from bokeh.io import *
-from bokeh.embed import components
-from bokeh.layouts import row
 from bokeh.embed import server_document
-import functions
 
 app = Flask(__name__)
 # Index page, no args

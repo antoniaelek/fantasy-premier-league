@@ -3,7 +3,6 @@ from bokeh.io import *
 from bokeh.plotting import figure
 from bokeh.layouts import gridplot, column
 from bokeh.models import ColumnDataSource
-from bokeh.models.sources import AjaxDataSource
 from bokeh.models.widgets import Select
 from bokeh.palettes import d3
 import functions
@@ -70,13 +69,6 @@ p.hover.tooltips = """
 <tr style="line-height: 0.8; font-size: 12px; padding:0; margin: 0"><td style="font-weight: bold;">Value per cost</td><td>@vpc_ratio</td></tr>
 </table>
 """
-#[
-#     ("Name", "@names"),
-#     ("Position", "@position"),
-#     ("Cost", "@now_cost £"),
-#     ("Avg points", "@points_per_game"),
-#     ("Value per cost", "@vpc_ratio")
-# ]
 
 p.scatter(x='now_cost', y='points_per_game', radius='circle_size', fill_alpha='fill_alpha',
           color={'field': 'position', 'transform': color_map}, source=source)
