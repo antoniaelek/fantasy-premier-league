@@ -1,5 +1,7 @@
 # Fantasy Premier League Stats, Visualizations &amp; Analysis
 
+Live at [fantasy.aelek.me](http://fantasy.aelek.me/).
+
 Currently, there are two avaliable features, *Players Comparison* & *Points Per Cost Analysis*.
 
 ## Players Comparison
