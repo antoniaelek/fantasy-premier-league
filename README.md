@@ -1,6 +1,7 @@
 # Fantasy Premier League Stats, Visualizations &amp; Analysis
 
 Simple python web app with FPL stats, visualizations and anlysis.
+Live at [fantasy.aelek.me](http://fantasy.aelek.me/).
 
 ## Running locally
 - Natively
@@ -25,4 +26,4 @@ Points Per Cost scatter plot visualizes relationship between each player's price
 
 ![points-per-cost](https://raw.githubusercontent.com/antoniaelek/antoniaelek.github.io/master/images/fpl-points-per-cost.png)
 
-I'll admit that it is all still rather basic right now, however I will be pushing more contents with new features as I go along, so please bear with me on this one, it will for sure be lots of fun.
+All still rather basic right now, however I will be pushing more contents with new features as I go along.
