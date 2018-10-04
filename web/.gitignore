@@ -1,3 +1,5 @@
+static/assets/bokeh/
+
 .DS_Store
 .env
 .flaskenv
