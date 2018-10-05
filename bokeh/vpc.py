@@ -26,6 +26,25 @@ palette = d3['Category10'][4]
 color_map = CategoricalColorMapper(factors=['Goalkeeper', 'Defender', 'Midfielder', 'Forward'], palette=palette)
 select = Select(options=['All', 'Goalkeepers', 'Defenders', 'Midfielders', 'Forwards'])
 
+
+def normalize_circle_size(row):
+    cs = row['vpc_ratio'] / 2
+    if cs > 1:
+        cs = 1
+    elif cs < 0.1:
+        cs = 0.1
+    return cs
+
+
+def normalize_fill_alpha(row):
+    cs = row['vpc_ratio'] / 2
+    if cs > 0.8:
+        cs = 0.8
+    elif cs < 0.1:
+        cs = 0.1
+    return normalize_circle_size(row)/2
+
+
 # set data source for visual
 source = ColumnDataSource(data=dict(
     names=df['display_name'],
@@ -33,8 +52,8 @@ source = ColumnDataSource(data=dict(
     points_per_game=df['total_points'],
     vpc_ratio=df['vpc_ratio'],
     now_cost=df['value'],
-    circle_size=df['vpc_ratio'] / 2,
-    fill_alpha=df['vpc_ratio'] / 2))
+    circle_size=df.apply(normalize_circle_size, axis=1),
+    fill_alpha=df.apply(normalize_fill_alpha, axis=1)))
 
 
 def update_data(attrname, old, new):
@@ -55,8 +74,8 @@ def update_data(attrname, old, new):
         points_per_game=curr_df['total_points'],
         vpc_ratio=curr_df['vpc_ratio'],
         now_cost=curr_df['value'],
-        circle_size=curr_df['vpc_ratio'] / 2,
-        fill_alpha=curr_df['vpc_ratio'] / 2)
+        circle_size=curr_df.apply(normalize_circle_size, axis=1),
+        fill_alpha=curr_df.apply(normalize_fill_alpha, axis=1))
 
 
 select.on_change('value', update_data)
