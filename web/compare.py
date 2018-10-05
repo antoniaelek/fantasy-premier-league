@@ -40,7 +40,8 @@ def player_stats(df, base_path):
         dirname = os.path.dirname(md_file)
         if not os.path.exists(dirname):
             os.makedirs(dirname)
-		
+
+        print("Generating " + md_file + "...")
         with open(md_file, 'w', encoding='utf8') as f:
             f.write('<head><style>' +
                     'body, table, td { font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #444; line-height: 0.8; font-size: 12px; } ' +
@@ -126,8 +127,8 @@ def player_plots(df, base_path, gw_cnt):
         fig = row(p)
         # show(fig)
 	
-	md_file = base_path + 'web/static/assets/bokeh/player_stats/' + player3 + '.html'
-	print("Generating " + md_file + "...")
+        md_file = base_path + 'web/static/assets/bokeh/player_stats/' + player3 + '.html'
+        print("Generating " + md_file + "...")
         output_file(md_file)
         save(fig)
 
