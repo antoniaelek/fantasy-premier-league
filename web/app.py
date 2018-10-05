@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from bokeh.embed import server_document
-from compare import *
+from compare import compare_players
 
 SEASON = "2018-19"
 CURR_GW = 7

@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 from pathlib import Path
 from bokeh.models import CategoricalColorMapper
-from bokeh.io import *
+from bokeh.io import output_file, save
 from bokeh.plotting import figure
 from bokeh.layouts import gridplot, row
 from bokeh.models import ColumnDataSource
@@ -36,6 +37,11 @@ def player_stats(df, base_path):
 
         md_file = base_path + 'web/static/assets/bokeh/player_stats/' + player3 + '_text.html'
 
+        dirname = os.path.dirname(md_file)
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
+	
+	print("Generating " + md_file + "...")
         with open(md_file, 'w', encoding='utf8') as f:
             f.write('<head><style>' +
                     'body, table, td { font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #444; line-height: 0.8; font-size: 12px; } ' +
@@ -120,7 +126,10 @@ def player_plots(df, base_path, gw_cnt):
 
         fig = row(p)
         # show(fig)
-        output_file(base_path + 'web/static/assets/bokeh/player_stats/' + player3 + '.html')
+	
+	md_file = base_path + 'web/static/assets/bokeh/player_stats/' + player3 + '.html'
+	print("Generating " + md_file + "...")
+        output_file(md_file)
         save(fig)
 
 

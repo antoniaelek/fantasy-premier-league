@@ -29,7 +29,7 @@ def calc_in_game_stats(row):
 
 def calc_basic_stats(row):
     if row['minutes'] == 0:
-        val = 0
+        return 0
     else:
         val = (row['total_points'] + row['bonus']) / (row['minutes'] / 90) + row['points_per_game'] + row['dreamteam_count']
     return round(val, 2)

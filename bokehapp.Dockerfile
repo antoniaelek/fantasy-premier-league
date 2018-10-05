@@ -1,13 +1,11 @@
-FROM continuumio/miniconda
+FROM continuumio/miniconda3
 
 MAINTAINER Antonia Elek <antoniaelek at hotmail.com>
 
+RUN conda install -y nomkl bokeh numpy pandas
 
-RUN conda install -y bokeh numpy pandas
-
-## Scripts are in here.
-VOLUME ['/app']
+VOLUME '/app'
 
 EXPOSE 5006
 
-ENTRYPOINT ["bokeh","serve","/app/vpc.py","--allow-websocket-origin=*","--address=0.0.0.0"]
+ENTRYPOINT ["bokeh","serve","/app/bokeh/vpc.py","--allow-websocket-origin=*","--address=0.0.0.0"]

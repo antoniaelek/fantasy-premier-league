@@ -10,7 +10,7 @@ import functions
 
 # Parameters
 SEASON = "2018-19"
-CURR_GW = 6
+CURR_GW = 7
 
 # Get data
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_top

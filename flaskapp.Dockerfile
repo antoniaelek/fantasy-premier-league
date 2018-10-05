@@ -1,14 +1,12 @@
-FROM continuumio/miniconda
+FROM continuumio/miniconda3
 
 MAINTAINER Antonia Elek <antoniaelek at hotmail.com>
 
-RUN conda install -y flask bokeh
 
-## Scripts are in here.
-VOLUME ['/app']
+RUN conda install -y nomkl bokeh flask pandas
+
+VOLUME '/app'
 
 EXPOSE 5000
 
-WORKDIR /app
-
-ENTRYPOINT ["python","/app/app.py"]
+ENTRYPOINT ["python","/app/web/app.py"]
