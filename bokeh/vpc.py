@@ -63,7 +63,7 @@ select.on_change('value', update_data)
 
 tools = "hover,crosshair,pan,wheel_zoom,zoom_in,zoom_out,box_zoom,undo,redo,reset,tap,save,box_select,poly_select,lasso_select,"
 
-p = figure(tools=tools, x_axis_label="cost", y_axis_label="avg points", x_range=(3, 15), y_range=(0, 10))
+p = figure(tools=tools, x_axis_label="cost", y_axis_label="avg points", x_range=(3, 15), y_range=(0, 15))
 p.hover.tooltips = """<table>
 <tr style="line-height: 0.8; font-size: 17px; font-weight: bold; padding:0; margin: 0">
     <td colspan=2">@names</td>
