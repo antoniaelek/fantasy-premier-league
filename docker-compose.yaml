@@ -2,6 +2,8 @@ version: '2'
 
 services:
   flaskapp:
+    env_file:
+      - 'variables.env'
     build:
       context: .
       dockerfile: flaskapp.Dockerfile
@@ -12,6 +14,8 @@ services:
     links:
       - bokehapp
   bokehapp:
+    env_file:
+      - 'variables.env'
     build:
       context: .
       dockerfile: bokehapp.Dockerfile

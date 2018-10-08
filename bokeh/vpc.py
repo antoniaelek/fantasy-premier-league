@@ -9,8 +9,8 @@ import os
 import functions
 
 # Parameters
-SEASON = "2018-19"
-CURR_GW = 8
+SEASON = os.environ["FPL_SEASON"]
+CURR_GW = int(os.environ["FPL_CURR_GW"])
 
 # Get data
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_top

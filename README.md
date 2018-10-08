@@ -4,11 +4,13 @@ Simple python web app with FPL stats, visualizations and anlysis.
 Live at [fantasy.aelek.me](http://fantasy.aelek.me/).
 
 ## Running locally
-- Natively
+### Natively
+  - Set the value of `IP` environment variable in `variables.env` to `127.0.0.1`.
   - Open up a terminal and run `bokeh serve .\bokeh\vpc.py --allow-websocket-origin=localhost`
   - In another termianl window, run `python .\web\app.py`
 
-- With Docker
+### With Docker
+  - Set the value of `IP` environment variable in `variables.env` to `127.0.0.1`.
   - Run `docker-compose up`.
 
 Application will be available at [127.0.0.1](http://127.0.0.1/)
@@ -25,5 +27,3 @@ Players Comparison is exactly what it sounds it is. Take two players and compare
 Points Per Cost scatter plot visualizes relationship between each player's price and their average points gain. Blue circles on the plot are goalkeepers, orange ones are defenders, midfielders are in green and forwards are red circles. Larger circle means you get better value for your money. It is also possible to filter plot by a certain position, for better visibility.
 
 ![points-per-cost](https://raw.githubusercontent.com/antoniaelek/antoniaelek.github.io/master/images/fpl-points-per-cost.png)
-
-All still rather basic right now, however I will be pushing more contents with new features as I go along.
