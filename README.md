@@ -5,13 +5,13 @@ Live at [fantasy.aelek.me](http://fantasy.aelek.me/).
 
 ## Running locally
 - Natively
-  - Open up a terminal and run `bokeh serve .\bokeh\vpc.py --allow-websocket-origin=localhost:5000`
+  - Open up a terminal and run `bokeh serve .\bokeh\vpc.py --allow-websocket-origin=localhost`
   - In another termianl window, run `python .\web\app.py`
 
 - With Docker
   - Run `docker-compose up`.
 
-Application will be available at [127.0.0.1:5000](http://127.0.0.1:5000/)
+Application will be available at [127.0.0.1](http://127.0.0.1/)
 
 ## Features
 Currently, there are two avaliable features, *Players Comparison* & *Points Per Cost Analysis*.

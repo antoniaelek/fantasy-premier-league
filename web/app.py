@@ -9,13 +9,13 @@ app = Flask(__name__)
 # Index page, no args
 @app.route('/')
 def index():
-    vpc = server_document("http://localhost:5006/vpc")
+    vpc = server_document("http://178.128.40.220:5006/vpc")
     return render_template("index.html", vpc=vpc)
 
 
 # With debug=True, Flask server will auto-reload
 # when there are code changes
 if __name__ == '__main__':
-    #compare_players(SEASON, CURR_GW)
+    compare_players(SEASON, CURR_GW)
     app.run(host='0.0.0.0')
 
