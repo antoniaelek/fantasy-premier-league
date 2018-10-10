@@ -7,10 +7,14 @@ from bokeh.models.widgets import Select
 from bokeh.palettes import d3
 import os
 import functions
+import requests
 
 # Parameters
 SEASON = os.environ["FPL_SEASON"]
-CURR_GW = int(os.environ["FPL_CURR_GW"])
+
+url = "https://fantasy.premierleague.com/drf/bootstrap-static"
+data = requests.get(url).json()
+CURR_GW = data['next-event'] - 1
 
 # Get data
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_top

@@ -1,19 +1,21 @@
 # Fantasy Premier League Stats, Visualizations &amp; Analysis
 
 Simple python web app with FPL stats, visualizations and anlysis.
-Live at [fantasy.aelek.me](http://fantasy.aelek.me/).
+Live at [fantasy.elek.hr](http://fantasy.elek.hr/).
 
 ## Running locally
-### Natively
-  - Set the value of `IP` environment variable in `variables.env` to `127.0.0.1`.
-  - Open up a terminal and run `bokeh serve .\bokeh\vpc.py --allow-websocket-origin=localhost`
-  - In another termianl window, run `python .\web\app.py`
-
 ### With Docker
-  - Set the value of `IP` environment variable in `variables.env` to `127.0.0.1`.
-  - Run `docker-compose up`.
-
-Application will be available at [127.0.0.1](http://127.0.0.1/)
+  - Set the value of `IP` environment variable in `variables.env` to `127.0.0.1`
+  - Run `docker-compose up`
+  - Application will be available at [localhost](http://localhost/)
+  
+### Natively
+  - Run `pip install -r requirements.txt` to install requirements
+  - Set the `IP` environment variable to `127.0.0.1` (eq. in PowerShell run `$env:FPL_IP="127.0.0.1"`)
+  - Set the `FPL_SEASON` environment variable to `2018-19` (eq. in PowerShell run `$env:FPL_SEASON="2018-19"`)
+  - Open up a terminal window and run `bokeh serve .\bokeh\vpc.py --allow-websocket-origin=localhost:5000`
+  - In another termianl window, run `python .\web\app.py`
+  - Application will be available at [localhost:5000](http://localhost:5000/)
 
 ## Features
 Currently, there are two avaliable features, *Players Comparison* & *Points Per Cost Analysis*.
