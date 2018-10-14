@@ -181,26 +181,45 @@ def get_gameweek_data(base_path, season, curr_gw):
     return df1
 
 
-def get_detailed_aggregate_data(base_path, season):
-    aggregates = ['mean', 'median', 'sum', 'count', 'min', 'max']
-    features = ['assists', 'attempted_passes', 'big_chances_created', 'big_chances_missed', 'bonus', 'bps',
-                'clean_sheets', 'clearances_blocks_interceptions', 'completed_passes', 'creativity',
-                'dribbles', 'ea_index', 'errors_leading_to_goal', 'errors_leading_to_goal_attempt', 'fouls',
-                'goals_conceded', 'goals_scored', 'ict_index', 'influence', 'key_passes', 'loaned_in',
-                'loaned_out', 'minutes', 'offside', 'open_play_crosses', 'own_goals', 'penalties_conceded',
-                'penalties_missed', 'penalties_saved', 'recoveries', 'red_cards', 'saves', 'selected',
-                'tackled', 'tackles', 'target_missed', 'threat', 'total_points', 'transfers_balance',
-                'transfers_in', 'transfers_out', 'value', 'winning_goals', 'yellow_cards']
+def get_aggregate_functions():
+    return ['mean', 'median', 'sum', 'count', 'min', 'max']
+
+
+def get_features_for_aggregation():
+    return ['assists', 'attempted_passes', 'big_chances_created', 'big_chances_missed', 'bonus', 'bps',
+            'clean_sheets', 'clearances_blocks_interceptions', 'completed_passes', 'creativity',
+            'dribbles', 'ea_index', 'errors_leading_to_goal', 'errors_leading_to_goal_attempt', 'fouls',
+            'goals_conceded', 'goals_scored', 'ict_index', 'influence', 'key_passes', 'loaned_in',
+            'loaned_out', 'minutes', 'offside', 'open_play_crosses', 'own_goals', 'penalties_conceded',
+            'penalties_missed', 'penalties_saved', 'recoveries', 'red_cards', 'saves', 'selected',
+            'tackled', 'tackles', 'target_missed', 'threat', 'total_points', 'transfers_balance',
+            'transfers_in', 'transfers_out', 'value', 'winning_goals', 'yellow_cards']
+
+
+def get_aggregate_features():
+    features = get_features_for_aggregation()
+    aggregates = get_aggregate_functions()
 
     features_out = ['name_id', 'id', 'name']
     for feature in features:
         for aggregate in aggregates:
             features_out.append(aggregate + "_" + feature)
 
+    return features_out
+
+
+def get_detailed_aggregate_data(base_path, season):
+    features_in = get_features_for_aggregation()
+    features_out = get_aggregate_features()
+
     df_out = pandas.DataFrame(columns=features_out)
     df_out.set_index('id')
 
+    i = 0
     for file in glob.glob(base_path + 'data/' + season + '/players/*/gw.csv'):
+        i = i + 1
+        if (i > 10):
+            break
         df_in = pandas.read_csv(file, encoding='latin_1')
         df_in['value'] = df_in['value']/10
 
@@ -210,7 +229,7 @@ def get_detailed_aggregate_data(base_path, season):
         name = name.replace("_", " ")
 
         features_out_dict = {}
-        for feature in features:
+        for feature in features_in:
             features_out_dict["mean_" + feature] = df_in[feature].mean()
             features_out_dict["median_" + feature] = df_in[feature].median()
             features_out_dict["sum_" + feature] = df_in[feature].sum()
