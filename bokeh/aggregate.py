@@ -2,7 +2,7 @@ from bokeh.io import curdoc
 from bokeh.plotting import figure
 from bokeh.layouts import layout
 from bokeh.models import ColumnDataSource
-from bokeh.models.widgets import Select
+from bokeh.models.widgets import Select, PreText, Div
 import os
 import pandas
 import functions
@@ -96,11 +96,14 @@ def update_y_metric(attrname, old, new):
 features = functions.get_features_for_aggregation()
 aggregates = functions.get_aggregate_functions()
 
-select_agg_func_x = Select(title='X Aggregate', options=[to_pretty(a) for a in aggregates])
-select_agg_func_y = Select(title='Y Aggregate', options=[to_pretty(a) for a in aggregates])
+x_agg_div = Div(text="""<h3>X aggregate function</h3>""")
+select_agg_func_x = Select(options=[to_pretty(a) for a in aggregates])
 
-select_metric_x = Select(title='X Metrics', options=[to_pretty(f) for f in features])
-select_metric_y = Select(title='Y Metrics', options=[to_pretty(f) for f in features])
+y_agg_div = Div(text="""<h3>Y aggregate function</h3?""")
+select_agg_func_y = Select(options=[to_pretty(a) for a in aggregates])
+
+select_metric_x = Select(options=[to_pretty(f) for f in features])
+select_metric_y = Select(options=[to_pretty(f) for f in features])
 
 select_agg_func_x.on_change('value', update_x_agg_func)
 select_agg_func_y.on_change('value', update_y_agg_func)
@@ -139,5 +142,9 @@ source = ColumnDataSource(data=dict(
     fill_alpha=[0.3]*len(DF['name'])))
 p.scatter(x='x', y='y', radius='circle_size', fill_alpha='fill_alpha', source=source)
 
-curdoc().add_root(layout([[select_agg_func_x, select_metric_x], [select_agg_func_y, select_metric_y], [p]],
-                         width=600, height=700, sizing_mode="scale_width"))
+curdoc().add_root(layout([[x_agg_div],
+                          [select_agg_func_x, select_metric_x],
+                          [y_agg_div],
+                          [select_agg_func_y, select_metric_y],
+                          [p]],
+                         width=600, height=600, sizing_mode="scale_width"))
