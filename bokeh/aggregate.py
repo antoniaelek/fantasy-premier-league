@@ -1,12 +1,11 @@
-# from __main__ import *
 from bokeh.io import curdoc
 from bokeh.plotting import figure
-from bokeh.layouts import gridplot, column, layout
+from bokeh.layouts import layout
 from bokeh.models import ColumnDataSource
 from bokeh.models.widgets import Select
 import os
-import functions
 import pandas
+import functions
 
 # Parameters
 # SEASON = os.environ["FPL_SEASON"]

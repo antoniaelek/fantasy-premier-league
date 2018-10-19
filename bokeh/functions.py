@@ -181,6 +181,14 @@ def get_gameweek_data(base_path, season, curr_gw):
     return df1
 
 
+def get_raw_data(base_path, season):
+    df1 = pandas.read_csv(base_path + 'data/' + season + '/players_raw.csv', encoding='utf8')
+    df1['name'] = df1['first_name'] + ' ' + df1['second_name']
+    df1["position"] = df1.apply(map_position, axis=1)
+    df1 = df1.sort_values(['name'], ascending=True)
+    return df1
+
+
 def get_aggregate_functions():
     return ['mean', 'median', 'sum', 'count', 'min', 'max']
 
@@ -244,14 +252,6 @@ def get_detailed_aggregate_data(base_path, season):
 
     df_out = df_out.fillna(0)
     return df_out
-
-
-def get_raw_data(base_path, season):
-    df1 = pandas.read_csv(base_path + 'data/' + season + '/players_raw.csv', encoding='utf8')
-    df1['name'] = df1['first_name'] + ' ' + df1['second_name']
-    df1["position"] = df1.apply(map_position, axis=1)
-    df1 = df1.sort_values(['name'], ascending=True)
-    return df1
 
 
 def calc_vpc(base_path, season, currgw):

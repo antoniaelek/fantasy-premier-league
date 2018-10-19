@@ -1,13 +1,13 @@
 from bokeh.models import CategoricalColorMapper
 from bokeh.io import curdoc
 from bokeh.plotting import figure
-from bokeh.layouts import gridplot, column
+from bokeh.layouts import column
 from bokeh.models import ColumnDataSource
 from bokeh.models.widgets import Select
 from bokeh.palettes import d3
 import os
-import functions
 import requests
+import pandas
 
 # Parameters
 SEASON = os.environ["FPL_SEASON"]
@@ -20,11 +20,11 @@ CURR_GW = data['next-event'] - 1
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_top
 BASE_PATH = APP_ROOT + "/"
 
-df = functions.calc_vpc(BASE_PATH, SEASON, CURR_GW)
-df_gkp = df[df.position == 'Goalkeeper']
-df_def = df[df.position == 'Defender']
-df_mid = df[df.position == 'Midfielder']
-df_fwd = df[df.position == 'Forward']
+DF = pandas.read_csv(BASE_PATH + "data/" + SEASON + '/vpc_data.csv', encoding='latin_1', sep=';')
+DF_GKP = DF[DF.position == 'Goalkeeper']
+DF_DEF = DF[DF.position == 'Defender']
+DF_MID = DF[DF.position == 'Midfielder']
+DF_FWD = DF[DF.position == 'Forward']
 
 palette = d3['Category10'][4]
 color_map = CategoricalColorMapper(factors=['Goalkeeper', 'Defender', 'Midfielder', 'Forward'], palette=palette)
@@ -51,26 +51,26 @@ def normalize_fill_alpha(row):
 
 # set data source for visual
 source = ColumnDataSource(data=dict(
-    names=df['display_name'],
-    position=df['position'],
-    points_per_game=df['total_points'],
-    vpc_ratio=df['vpc_ratio'],
-    now_cost=df['value'],
-    circle_size=df.apply(normalize_circle_size, axis=1),
-    fill_alpha=df.apply(normalize_fill_alpha, axis=1)))
+    names=DF['display_name'],
+    position=DF['position'],
+    points_per_game=DF['total_points'],
+    vpc_ratio=DF['vpc_ratio'],
+    now_cost=DF['value'],
+    circle_size=DF.apply(normalize_circle_size, axis=1),
+    fill_alpha=DF.apply(normalize_fill_alpha, axis=1)))
 
 
 def update_data(attrname, old, new):
     if new == "Goalkeepers":
-        curr_df = df_gkp
+        curr_df = DF_GKP
     elif new == "Defenders":
-        curr_df = df_def
+        curr_df = DF_DEF
     elif new == "Midfielders":
-        curr_df = df_mid
+        curr_df = DF_MID
     elif new == "Forwards":
-        curr_df = df_fwd
+        curr_df = DF_FWD
     else:
-        curr_df = df
+        curr_df = DF
 
     source.data = dict(
         names=curr_df['display_name'],
@@ -86,7 +86,7 @@ select.on_change('value', update_data)
 
 tools = "hover,crosshair,pan,wheel_zoom,zoom_in,zoom_out,box_zoom,undo,redo,reset,tap,save,box_select,poly_select,lasso_select,"
 
-p = figure(tools=tools, x_axis_label="cost", y_axis_label="avg points", x_range=(3, 15), y_range=(0, 15))
+p = figure(tools=tools, x_axis_label="cost", y_axis_label="avg points", x_range=(3, 14), y_range=(0, 14))
 p.hover.tooltips = """<table>
 <tr style="line-height: 0.8; font-size: 17px; font-weight: bold; padding:0; margin: 0">
     <td colspan=2">@names</td>
