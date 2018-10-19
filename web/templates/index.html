@@ -52,8 +52,14 @@
 								</li>
 								<li>
 									<a href="#points-per-cost">
-										<span style="line-height: 1.75em" class="fas fa-chart-area"></span>
+										<span style="line-height: 1.75em" class="fas fa-pound-sign"></span>
 										<span style="line-height: 1.75em">Points Per Cost</span>
+									</a>
+								</li>
+								<li>
+									<a href="#aggregate">
+										<span style="line-height: 1.75em" class="fas fa-chart-area"></span>
+										<span style="line-height: 1.75em">Aggregate Plots</span>
 									</a>
 								</li>
 							</ul>
@@ -140,9 +146,11 @@
 							</header>
 
                             <div class="row" align="center">
-                                <div class="col-md-qw">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
                                     {{ aggregate|indent(4)|safe }}
                                 </div>
+                                <div class="col-md-3"></div>
                             </div>
 
 						</div>

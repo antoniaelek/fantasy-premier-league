@@ -139,4 +139,5 @@ source = ColumnDataSource(data=dict(
     fill_alpha=[0.3]*len(DF['name'])))
 p.scatter(x='x', y='y', radius='circle_size', fill_alpha='fill_alpha', source=source)
 
-curdoc().add_root(layout([[select_agg_func_x, select_metric_x], [select_agg_func_y, select_metric_y],[p]]))
+curdoc().add_root(layout([[select_agg_func_x, select_metric_x], [select_agg_func_y, select_metric_y], [p]],
+                         width=600, height=700, sizing_mode="scale_width"))
