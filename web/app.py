@@ -1,27 +1,38 @@
 from flask import Flask, render_template, request
 from bokeh.embed import server_document
 from compare import compare_players
+from pathlib import Path
 import os
 import requests
+import pandas
+import functions
 
 SEASON = os.environ["FPL_SEASON"]
 IP = os.environ["FPL_IP"]
-
-url = "https://fantasy.premierleague.com/drf/bootstrap-static"
+BASE_PATH = str(Path(os.path.dirname(os.path.abspath(__file__))).parent) + "/bokeh/"
+URL = "https://fantasy.premierleague.com/drf/bootstrap-static"
 
 app = Flask(__name__)
 # Index page, no args
 @app.route('/')
 def index():
     vpc = server_document("http://" + IP + ":5006/vpc")
-    return render_template("index.html", vpc=vpc)
+    aggregate = server_document("http://" + IP + ":5006/aggregate")
+    return render_template("index.html", vpc=vpc, aggregate=aggregate)
 
 
 # With debug=True, Flask server will auto-reload
 # when there are code changes
 if __name__ == '__main__':
-    data = requests.get(url).json()
-    curr_gameweek = data['next-event'] - 1
-    compare_players(SEASON, curr_gameweek)
+    json = requests.get(URL).json()
+    curr_gameweek = json['next-event'] - 1
+
+    # Generate html files with players data
+    # compare_players(SEASON, curr_gameweek)
+
+    # Save aggregate data to csv
+    # data = functions.get_detailed_aggregate_data(BASE_PATH, SEASON)
+    # data.to_csv(BASE_PATH + "/data/" + SEASON + '/aggregate_data.csv', sep=';', encoding='latin_1', index=False)
+
     app.run(host='0.0.0.0')
 
