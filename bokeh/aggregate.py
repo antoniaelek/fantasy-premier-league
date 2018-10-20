@@ -75,11 +75,14 @@ def update_x_agg_func(attrname, old, new):
         name=DF['name'],
         x=DF[from_pretty(x_agg_func + ' ' + x_metric)],
         y=DF[from_pretty(y_agg_func + ' ' + y_metric)],
-        x_title=[to_pretty((x_agg_func + "_" + x_metric))]*len(DF['name']),
-        y_title=[to_pretty((y_agg_func + "_" + y_metric))]*len(DF['name']),
+        x_title=[to_pretty(x_agg_func + "_" + x_metric)]*len(DF['name']),
+        y_title=[to_pretty(y_agg_func + "_" + y_metric)]*len(DF['name']),
         position=DF['position'],
         circle_size=[circle_size]*len(DF['name']),
         fill_alpha=[0.3]*len(DF['name']))
+
+    p.xaxis.axis_label = to_pretty(x_agg_func + "_" + x_metric)
+    p.yaxis.axis_label = to_pretty(y_agg_func + "_" + y_metric)
 
 
 def update_y_agg_func(attrname, old, new):
@@ -97,6 +100,9 @@ def update_y_agg_func(attrname, old, new):
         circle_size=[circle_size]*len(DF['name']),
         fill_alpha=[0.3]*len(DF['name']))
 
+    p.xaxis.axis_label = to_pretty(x_agg_func + "_" + x_metric)
+    p.yaxis.axis_label = to_pretty(y_agg_func + "_" + y_metric)
+
 
 def update_x_metric(attrname, old, new):
     global x_metric, p, circle_size
@@ -113,6 +119,9 @@ def update_x_metric(attrname, old, new):
         circle_size=[circle_size]*len(DF['name']),
         fill_alpha=[0.3]*len(DF['name']))
 
+    p.xaxis.axis_label = to_pretty(x_agg_func + "_" + x_metric)
+    p.yaxis.axis_label = to_pretty(y_agg_func + "_" + y_metric)
+
 
 def update_y_metric(attrname, old, new):
     global y_metric, p, circle_size
@@ -128,6 +137,9 @@ def update_y_metric(attrname, old, new):
         position=DF['position'],
         circle_size=[circle_size]*len(DF['name']),
         fill_alpha=[0.3]*len(DF['name']))
+
+    p.xaxis.axis_label = to_pretty(x_agg_func + "_" + x_metric)
+    p.yaxis.axis_label = to_pretty(y_agg_func + "_" + y_metric)
 
 
 features = functions.get_features_for_aggregation()
@@ -153,9 +165,23 @@ select_agg_func_y.on_change('value', update_y_agg_func)
 select_metric_x.on_change('value', update_x_metric)
 select_metric_y.on_change('value', update_y_metric)
 
-tools = "hover,crosshair,pan,wheel_zoom,zoom_in,zoom_out,box_zoom,undo,redo,reset,tap,save,box_select,poly_select,lasso_select,"
+# set data source for visual
+circle_size = (DF[from_pretty(x_agg_func + ' ' + x_metric)].max() -
+               DF[from_pretty(x_agg_func + ' ' + x_metric)].min()) / NO_CIRCLES
 
-p = figure(tools=tools)
+source = ColumnDataSource(data=dict(
+    name=DF['name'],
+    x=DF[from_pretty(x_agg_func + ' ' + x_metric)],
+    y=DF[from_pretty(y_agg_func + ' ' + y_metric)],
+    x_title=[to_pretty(x_agg_func + "_" + x_metric)]*len(DF['name']),
+    y_title=[to_pretty(y_agg_func + "_" + y_metric)]*len(DF['name']),
+    position=DF['position'],
+    circle_size=[circle_size]*len(DF['name']),
+    fill_alpha=[0.3]*len(DF['name'])))
+
+tools = "hover,crosshair,pan,wheel_zoom,zoom_in,zoom_out,box_zoom," \
+        "undo,redo,reset,tap,save,box_select,poly_select,lasso_select,"
+p = figure(tools=tools, x_axis_label=to_pretty(x_agg_func + "_" + x_metric), y_axis_label=to_pretty(y_agg_func + "_" + y_metric))
 p.hover.tooltips = """<table>
 <tr style="line-height: 0.8; font-size: 17px; font-weight: bold; padding:0; margin: 0">
     <td colspan=2">@name</td>
@@ -170,21 +196,10 @@ p.hover.tooltips = """<table>
 </tr>
 </table>
 """
-
-# set data source for visual
-circle_size = (DF[from_pretty(x_agg_func + ' ' + x_metric)].max() -
-               DF[from_pretty(x_agg_func + ' ' + x_metric)].min()) / NO_CIRCLES
-source = ColumnDataSource(data=dict(
-    name=DF['name'],
-    x=DF[from_pretty(x_agg_func + ' ' + x_metric)],
-    y=DF[from_pretty(y_agg_func + ' ' + y_metric)],
-    x_title=[to_pretty((x_agg_func + "_" + x_metric))]*len(DF['name']),
-    y_title=[to_pretty((y_agg_func + "_" + y_metric))]*len(DF['name']),
-    position=DF['position'],
-    circle_size=[circle_size]*len(DF['name']),
-    fill_alpha=[0.3]*len(DF['name'])))
-p.scatter(x='x', y='y', radius='circle_size', fill_alpha='fill_alpha',
-          color={'field': 'position', 'transform': color_map}, source=source)
+p.scatter(x='x', y='y',
+          radius='circle_size', fill_alpha='fill_alpha',
+          color={'field': 'position', 'transform': color_map},
+          source=source)
 
 selects = layout([[position_div],
                   [widgetbox(select_position)],
