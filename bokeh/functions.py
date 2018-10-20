@@ -223,11 +223,7 @@ def get_detailed_aggregate_data(base_path, season):
     df_out = pandas.DataFrame(columns=features_out)
     df_out.set_index('id')
 
-    i = 0
     for file in glob.glob(base_path + 'data/' + season + '/players/*/gw.csv'):
-        #i = i + 1
-        #if (i > 10):
-        #    break
         df_in = pandas.read_csv(file, encoding='latin_1')
         df_in['value'] = df_in['value']/10
 

@@ -3,7 +3,7 @@ from bokeh.io import curdoc
 from bokeh.plotting import figure
 from bokeh.layouts import column
 from bokeh.models import ColumnDataSource
-from bokeh.models.widgets import Select
+from bokeh.models.widgets import Select, Div
 from bokeh.palettes import d3
 import os
 import requests
@@ -113,4 +113,5 @@ p.hover.tooltips = """<table>
 p.scatter(x='now_cost', y='points_per_game', radius='circle_size', fill_alpha='fill_alpha',
           color={'field': 'position', 'transform': color_map}, source=source)
 
-curdoc().add_root(column(select, p, width=600, height=600, sizing_mode="scale_width"))
+position_div = Div(text="""<h3>Player Position</h3>""")
+curdoc().add_root(column(position_div, select, p, width=600, height=600, sizing_mode="scale_width"))

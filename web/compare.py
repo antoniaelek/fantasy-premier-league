@@ -126,7 +126,7 @@ def player_plots(df, base_path, gw_cnt):
 
         fig = row(p)
         # show(fig)
-	
+        #
         md_file = base_path + 'web/static/assets/bokeh/player_stats/' + player3 + '.html'
         print("Generating " + md_file + "...")
         output_file(md_file)
