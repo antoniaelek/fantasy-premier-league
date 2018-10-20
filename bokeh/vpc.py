@@ -28,16 +28,16 @@ DF_FWD = DF[DF.position == 'Forward']
 
 palette = d3['Category10'][4]
 color_map = CategoricalColorMapper(factors=['Goalkeeper', 'Defender', 'Midfielder', 'Forward'], palette=palette)
-select = Select(options=['All', 'Goalkeepers', 'Defenders', 'Midfielders', 'Forwards'])
+select = Select(options=['All players', 'Goalkeepers', 'Defenders', 'Midfielders', 'Forwards'])
 
 
 def normalize_circle_size(row):
-    cs = row['vpc_ratio'] / 2
-    if cs > 1:
-        cs = 1
+    cs = row['vpc_ratio'] / DF['vpc_ratio'].max()
+    if cs > 0.8:
+        cs = 0.8
     elif cs < 0.1:
-        cs = 0.1
-    return cs
+        cs = 0.2
+    return cs/2
 
 
 def normalize_fill_alpha(row):
@@ -84,9 +84,12 @@ def update_data(attrname, old, new):
 
 select.on_change('value', update_data)
 
-tools = "hover,crosshair,pan,wheel_zoom,zoom_in,zoom_out,box_zoom,undo,redo,reset,tap,save,box_select,poly_select,lasso_select,"
+tools = "hover,crosshair,pan,wheel_zoom,zoom_in,zoom_out,box_zoom," \
+        "undo,redo,reset,tap,save,box_select,poly_select,lasso_select,"
 
-p = figure(tools=tools, x_axis_label="cost", y_axis_label="avg points", x_range=(3, 14), y_range=(0, 14))
+p = figure(tools=tools, x_axis_label="cost", y_axis_label="avg points",
+           x_range=(DF['value'].min()-0.2, DF['value'].max()+0.4),
+           y_range=(DF['total_points'].min()-0.2, DF['total_points'].max()+0.4))
 p.hover.tooltips = """<table>
 <tr style="line-height: 0.8; font-size: 17px; font-weight: bold; padding:0; margin: 0">
     <td colspan=2">@names</td>
@@ -113,5 +116,4 @@ p.hover.tooltips = """<table>
 p.scatter(x='now_cost', y='points_per_game', radius='circle_size', fill_alpha='fill_alpha',
           color={'field': 'position', 'transform': color_map}, source=source)
 
-position_div = Div(text="""<h3>Player Position</h3>""")
-curdoc().add_root(column(position_div, select, p, width=600, height=600, sizing_mode="scale_width"))
+curdoc().add_root(column(select, p, width=600, height=600, sizing_mode="scale_width"))
