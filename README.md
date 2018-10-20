@@ -13,8 +13,8 @@ Live at [fantasy.elek.hr](http://fantasy.elek.hr/).
   - Run `pip install -r requirements.txt` to install requirements
   - Set the `IP` environment variable to `127.0.0.1` (eq. in PowerShell run `$env:FPL_IP="127.0.0.1"`)
   - Set the `FPL_SEASON` environment variable to `2018-19` (eq. in PowerShell run `$env:FPL_SEASON="2018-19"`)
-  - Open up a terminal window and run `bokeh serve .\bokeh\vpc.py --allow-websocket-origin=localhost:5000`
-  - In another termianl window, run `python .\web\app.py`
+  - Open up a terminal window and run `python .\web\app.py`. Wait until application starts. 
+  - In another termianl window, run `bokeh serve .\bokeh\vpc.py --allow-websocket-origin=localhost:5000`
   - Application will be available at [localhost:5000](http://localhost:5000/)
 
 ## Features
