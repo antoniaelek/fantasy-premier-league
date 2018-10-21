@@ -10,15 +10,15 @@ import functions
 import os
 
 
-def compare_players(SEASON, CURR_GW):
+def compare_players(season, curr_gw):
     # Get data
-    BASE_PATH = str(Path(os.path.dirname(os.path.abspath(__file__))).parent) + "/"
+    base_path = str(Path(os.path.dirname(os.path.abspath(__file__))).parent) + "/"
 
-    df = functions.get_cumulative_data(base_path=BASE_PATH + "bokeh/", season=SEASON)
+    df = functions.get_cumulative_data(base_path=base_path + "bokeh/", season=season)
     df = df.fillna(0)
 
-    player_stats(df, BASE_PATH)
-    player_plots(df, BASE_PATH, CURR_GW)
+    player_stats(df, base_path)
+    player_plots(df, base_path, curr_gw)
 
 
 def player_stats(df, base_path):
