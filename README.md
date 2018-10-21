@@ -4,16 +4,21 @@ Simple python web app with FPL stats, visualizations and anlysis.
 Live at [fantasy.elek.hr](http://fantasy.elek.hr/).
 
 ## Running locally
+  - Clone this repository
+  - If `scraper` folder is empty, run `git submodule update --init --recursive` to pull that submodule
+  
 ### With Docker
   - Set the value of `IP` environment variable in `variables.env` to `127.0.0.1`
-  - Run `docker-compose up`
+  - Run `docker-compose build`
+  - Run `docker-compose up -d`
   - Application will be available at [localhost](http://localhost/)
   
 ### Natively
   - Run `pip install -r requirements.txt` to install requirements
   - Set the `IP` environment variable to `127.0.0.1` (eq. in PowerShell run `$env:FPL_IP="127.0.0.1"`)
   - Set the `FPL_SEASON` environment variable to `2018-19` (eq. in PowerShell run `$env:FPL_SEASON="2018-19"`)
-  - Open up a terminal window and run `python .\web\app.py`. Wait until application starts. 
+  - Run `python .\web\setup.py`
+  - Run `python .\web\app.py`
   - In another termianl window, run `bokeh serve .\bokeh\vpc.py --allow-websocket-origin=localhost:5000`
   - Application will be available at [localhost:5000](http://localhost:5000/)
 
