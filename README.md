@@ -34,6 +34,6 @@ Points Per Cost scatter plot visualizes relationship between each player's price
 ![points-per-cost](https://raw.githubusercontent.com/antoniaelek/fantasy-premier-league/master/static/images/vpc.png)
 
 ### 2D Analysis
-2D analysis plot visualizes relationship between any pair of each player's aggregated metrics. For example, the plot given in the screenshot below shows the relationship between average players' ICT index and their average points gain. It is possible to see right away that this relationship is a linear one for midfielders and forwards (green and red circles), but not so much for defenders and goalkeepers (orange and blue dots).
+2D analysis plot visualizes relationship between any pair of each player's aggregated metrics. For example, the plot given in the screenshot below shows the relationship between average players' ICT index and their average points gain.
 
 ![points-per-cost](https://raw.githubusercontent.com/antoniaelek/fantasy-premier-league/master/static/images/aggregates.png)
