@@ -1,0 +1,3 @@
+[submodule "scraper"]
+	path = scraper
+	url = https://github.com/vaastav/Fantasy-Premier-League

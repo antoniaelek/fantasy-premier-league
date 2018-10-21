@@ -4,6 +4,7 @@ from bokeh.layouts import layout, Row, Column, widgetbox, gridplot
 from bokeh.models import ColumnDataSource, CategoricalColorMapper
 from bokeh.models.widgets import Select, Div
 from bokeh.palettes import d3
+from pathlib import Path
 import os
 import pandas
 import functions
@@ -13,13 +14,13 @@ import functions
 SEASON = "2018-19"
 
 # Get data
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_top
+APP_ROOT = str(Path(os.path.dirname(os.path.abspath(__file__))).parent)   # refers to application_top
 BASE_PATH = APP_ROOT + "/"
 
 NO_CIRCLES = 40
 
-AGG_DF = pandas.read_csv(BASE_PATH + "data/" + SEASON + '/aggregate_data.csv', encoding='latin_1', sep=';')
-RAW_DF = functions.get_raw_data(BASE_PATH, SEASON)
+AGG_DF = pandas.read_csv(BASE_PATH + 'bokeh/data/aggregate_data.csv', encoding='latin_1', sep=';')
+RAW_DF = functions.get_raw_data(BASE_PATH + 'scraper/', SEASON)
 
 DF_ALL = pandas.merge(AGG_DF, RAW_DF, on='name', how='outer')
 DF_GKP = DF_ALL[DF_ALL.position == 'Goalkeeper']

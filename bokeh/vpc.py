@@ -5,6 +5,7 @@ from bokeh.layouts import column
 from bokeh.models import ColumnDataSource
 from bokeh.models.widgets import Select, Div
 from bokeh.palettes import d3
+from pathlib import Path
 import os
 import requests
 import pandas
@@ -17,10 +18,10 @@ data = requests.get(url).json()
 CURR_GW = data['next-event'] - 1
 
 # Get data
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_top
+APP_ROOT = str(Path(os.path.dirname(os.path.abspath(__file__))).parent)   # refers to application_top
 BASE_PATH = APP_ROOT + "/"
 
-DF = pandas.read_csv(BASE_PATH + "data/" + SEASON + '/vpc_data.csv', encoding='latin_1', sep=';')
+DF = pandas.read_csv(BASE_PATH + 'bokeh/data/vpc_data.csv', encoding='latin_1', sep=';')
 DF_GKP = DF[DF.position == 'Goalkeeper']
 DF_DEF = DF[DF.position == 'Defender']
 DF_MID = DF[DF.position == 'Midfielder']

@@ -14,7 +14,7 @@ def compare_players(season, curr_gw):
     # Get data
     base_path = str(Path(os.path.dirname(os.path.abspath(__file__))).parent) + "/"
 
-    df = functions.get_cumulative_data(base_path=base_path + "bokeh/", season=season)
+    df = functions.get_cumulative_data(base_path=base_path + "scraper/", season=season)
     df = df.fillna(0)
 
     player_stats(df, base_path)
@@ -103,7 +103,7 @@ def player_plots(df, base_path, gw_cnt):
         player4 = players4[i]
 
         # get plots data
-        val = functions.get_player_data(base_path=base_path+"bokeh/", player=player4)
+        val = functions.get_player_data(base_path=base_path+"scraper/", player=player4)
         source = ColumnDataSource(
             data=dict(x=val['gw'], y_value=val['value'] / 10, y_pts=val['total_points'], y_mins=val['minutes'],
                       y_ict=val['ict_index']))
