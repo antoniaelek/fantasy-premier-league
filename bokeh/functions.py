@@ -1,7 +1,8 @@
 import glob
 import pandas
 import sys
-sys._enablelegacywindowsfsencoding()
+if os.name == 'nt':
+    sys._enablelegacywindowsfsencoding()
 
 
 def calc_goals_conceded_per_game(row):
