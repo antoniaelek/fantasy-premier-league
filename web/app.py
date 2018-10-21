@@ -48,5 +48,5 @@ if __name__ == '__main__':
     agg_data = get_detailed_aggregate_data(BASE_PATH, SEASON)
     agg_data.to_csv(BASE_PATH + "/data/" + SEASON + '/aggregate_data.csv', sep=';', encoding='latin_1', index=False)
 
-    app.run(host=IP)
+    app.run(host='0.0.0.0')
 
