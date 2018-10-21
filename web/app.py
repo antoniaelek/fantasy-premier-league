@@ -1,5 +1,6 @@
 import sys, os
 from pathlib import Path
+import setup
 
 # Add bokeh folder to path
 SCRAPER_BASE_PATH = str(Path(os.path.dirname(os.path.abspath(__file__))).parent) + "/"
@@ -27,5 +28,7 @@ def index():
 # With debug=True, Flask server will auto-reload
 # when there are code changes
 if __name__ == '__main__':
+    if len(sys.argv) < 2 or sys.argv[1] != "--skip-init":
+        setup.main()
     app.run(host='0.0.0.0')
 
