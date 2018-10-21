@@ -145,7 +145,7 @@ def update_y_metric(attrname, old, new):
 features = functions.get_features_for_aggregation()
 aggregates = functions.get_aggregate_functions()
 
-position_div = Div(text="""<h3>Player Position</h3>""")
+position_div = Div(text="""<h3>Filter by Player Position</h3>""")
 palette = d3['Category10'][4]
 color_map = CategoricalColorMapper(factors=['Goalkeeper', 'Defender', 'Midfielder', 'Forward'], palette=palette)
 select_position = Select(options=['All', 'Goalkeepers', 'Defenders', 'Midfielders', 'Forwards'])
