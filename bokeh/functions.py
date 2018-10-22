@@ -193,7 +193,7 @@ def get_raw_data(base_path, season):
 
 
 def get_aggregate_functions():
-    return ['mean', 'median', 'sum', 'count', 'min', 'max']
+    return ['average', 'median', 'sum', 'count', 'min', 'max']
 
 
 def get_features_for_aggregation():
@@ -204,7 +204,7 @@ def get_features_for_aggregation():
             'loaned_out', 'minutes', 'offside', 'open_play_crosses', 'own_goals', 'penalties_conceded',
             'penalties_missed', 'penalties_saved', 'recoveries', 'red_cards', 'saves', 'selected',
             'tackled', 'tackles', 'target_missed', 'threat', 'total_points', 'transfers_balance',
-            'transfers_in', 'transfers_out', 'value', 'winning_goals', 'yellow_cards']
+            'transfers_in', 'transfers_out', 'cost', 'winning_goals', 'yellow_cards']
 
 
 def get_aggregate_features():
@@ -229,6 +229,7 @@ def get_detailed_aggregate_data(base_path, season):
     for file in glob.glob(base_path + 'data/' + season + '/players/*/gw.csv'):
         df_in = pandas.read_csv(file, encoding='latin_1')
         df_in['value'] = df_in['value']/10
+        df_in.rename(columns={'value': 'cost'}, inplace=True)
 
         element_id = df_in['element'][0]
         name_id = file.replace('/', '\\').split('\\')[-2]
@@ -237,7 +238,7 @@ def get_detailed_aggregate_data(base_path, season):
 
         features_out_dict = {}
         for feature in features_in:
-            features_out_dict["mean_" + feature] = df_in[feature].mean()
+            features_out_dict["average_" + feature] = df_in[feature].mean()
             features_out_dict["median_" + feature] = df_in[feature].median()
             features_out_dict["sum_" + feature] = df_in[feature].sum()
             features_out_dict["count_" + feature] = df_in[feature].count()

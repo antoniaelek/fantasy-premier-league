@@ -88,7 +88,7 @@ select.on_change('value', update_data)
 tools = "hover,crosshair,pan,wheel_zoom,zoom_in,zoom_out,box_zoom," \
         "undo,redo,reset,tap,save,box_select,poly_select,lasso_select,"
 
-p = figure(tools=tools, x_axis_label="cost", y_axis_label="avg points",
+p = figure(tools=tools, x_axis_label="Cost", y_axis_label="Average Points",
            x_range=(DF['value'].min()-0.2, DF['value'].max()+0.4),
            y_range=(DF['total_points'].min()-0.2, DF['total_points'].max()+0.4))
 p.hover.tooltips = """<table>

@@ -31,8 +31,8 @@ DF = DF_ALL
 
 x_metric = "ict_index"
 y_metric = "total_points"
-x_agg_func = "mean"
-y_agg_func = "mean"
+x_agg_func = "average"
+y_agg_func = "average"
 
 
 def to_pretty(x):
