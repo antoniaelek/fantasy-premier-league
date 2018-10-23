@@ -10,6 +10,14 @@ a:focus, a:hover {
     text-decoration: none !important;
 }
 
+iframe, .pldropdown{
+    display:block !important;
+    width:100% !important;
+}
+#pldropdown1, #pldropdown2 {
+    margin: 40px 0 20px 0;
+}
+
 html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
 pre, a, abbr, acronym, address, big, cite,

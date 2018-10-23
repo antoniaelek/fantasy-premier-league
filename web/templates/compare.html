@@ -1,7 +1,7 @@
 <body>
 	<div class="container" stlye="width: 100%">
 		<div class="row">
-			<div class="col-md-6" align="middle">
+			<div class="col-sm-6" align="middle">
 				<select id="pldropdown1" class="pldropdown" style="align: left;">
 					<option value="{{ baseurl }}/assets/bokeh/player_stats/Aaron Cresswell_55459">Aaron Cresswell</option>
 					<option value="{{ baseurl }}/assets/bokeh/player_stats/Aaron Lennon_17349">Aaron Lennon</option>
@@ -541,8 +541,22 @@
 					<option value="{{ baseurl }}/assets/bokeh/player_stats/Yves Bissouma_227127">Yves Bissouma</option>
 					<option value="{{ baseurl }}/assets/bokeh/player_stats/Álvaro Morata_88482">Álvaro Morata</option>
 				</select>
+				<img id="plimg1" height="220px" style="padding: 5px;" src="https://platform-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p118748.png">
+				<iframe id="plstats1" src="{{ baseurl }}/assets/bokeh/player_stats/Mohamed Salah_118748_text.html"
+					height="450"
+					scrolling="no"
+					seamless="seamless"
+					frameborder="0">
+				</iframe>
+				<iframe id="plplots1" src="{{ baseurl }}/assets/bokeh/player_stats/Mohamed Salah_118748.html"
+					sandbox="allow-same-origin allow-scripts"
+					height="500"
+					scrolling="no"
+					seamless="seamless"
+					frameborder="0">
+				</iframe>
 			</div>
-			<div class="col-md-6" align="middle">
+			<div class="col-sm-6" align="middle">
 				<select id="pldropdown2" class="pldropdown" style="align: right;">
 					<option value="{{ baseurl }}/assets/bokeh/player_stats/Aaron Cresswell_55459">Aaron Cresswell</option>
 					<option value="{{ baseurl }}/assets/bokeh/player_stats/Aaron Lennon_17349">Aaron Lennon</option>
@@ -1082,51 +1096,15 @@
 					<option value="{{ baseurl }}/assets/bokeh/player_stats/Yves Bissouma_227127">Yves Bissouma</option>
 					<option value="{{ baseurl }}/assets/bokeh/player_stats/Álvaro Morata_88482">Álvaro Morata</option>
 				</select>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6" align="middle">
-				<img id="plimg1" height="220px" style="padding: 5px;" src="https://platform-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p118748.png">
-			</div>
-			<div class="col-md-6" align="middle">
 				<img id="plimg2" height="220px" style="padding: 5px;" src="https://platform-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p42786.png">
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6" align="middle">
-				<iframe id="plstats1" src="{{ baseurl }}/assets/bokeh/player_stats/Mohamed Salah_118748_text.html"
-					width="430"
-					height="450"
-					scrolling="no"
-					seamless="seamless"
-					frameborder="0">
-				</iframe>
-			</div>
-			<div class="col-md-6" align="middle">
 				<iframe id="plstats2" src="{{ baseurl }}/assets/bokeh/player_stats/Eden Hazard_42786_text.html"
-					width="430"
 					height="450"
 					scrolling="no"
 					seamless="seamless"
 					frameborder="0">
 				</iframe>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6" align="middle">
-				<iframe id="plplots1" src="{{ baseurl }}/assets/bokeh/player_stats/Mohamed Salah_118748.html"
-					sandbox="allow-same-origin allow-scripts"
-					width="330"
-					height="500"
-					scrolling="no"
-					seamless="seamless"
-					frameborder="0">
-				</iframe>
-			</div>
-			<div class="col-md-6" align="middle">
 				<iframe id="plplots2" src="{{ baseurl }}/assets/bokeh/player_stats/Eden Hazard_42786.html"
 					sandbox="allow-same-origin allow-scripts"
-					width="330"
 					height="500"
 					scrolling="no"
 					seamless="seamless"
