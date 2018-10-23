@@ -6,15 +6,17 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
+
 a:focus, a:hover {
     text-decoration: none !important;
 }
 
 iframe, .pldropdown{
-    display:block !important;
-    width:100% !important;
+    display: block !important;
+    max-width: 100% !important;
+    min-width: fit-content !important;
 }
-#pldropdown1, #pldropdown2 {
+.pldropdown1, .pldropdown2 {
     margin: 40px 0 20px 0;
 }
 
