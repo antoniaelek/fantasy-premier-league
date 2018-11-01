@@ -183,7 +183,9 @@ source = ColumnDataSource(data=dict(
 tools = "hover,crosshair,pan,wheel_zoom,zoom_in,zoom_out,box_zoom," \
         "undo,redo,reset,tap,save,box_select,lasso_select,"
 
-p = figure(tools=tools, x_axis_label=to_pretty(x_agg_func + "_" + x_metric), y_axis_label=to_pretty(y_agg_func + "_" + y_metric))
+p = figure(tools=tools,
+           x_axis_label=to_pretty(x_agg_func + "_" + x_metric),
+           y_axis_label=to_pretty(y_agg_func + "_" + y_metric))
 p.hover.tooltips = """<table>
 <tr style="line-height: 0.8; font-size: 17px; font-weight: bold; padding:0; margin: 0">
     <td colspan=2">@name</td>

@@ -198,13 +198,13 @@ def get_aggregate_functions():
 
 def get_features_for_aggregation():
     return ['assists', 'attempted_passes', 'big_chances_created', 'big_chances_missed', 'bonus', 'bps',
-            'clean_sheets', 'clearances_blocks_interceptions', 'completed_passes', 'creativity',
+            'clean_sheets', 'clearances_blocks_interceptions', 'completed_passes', 'cost', 'creativity',
             'dribbles', 'ea_index', 'errors_leading_to_goal', 'errors_leading_to_goal_attempt', 'fouls',
             'goals_conceded', 'goals_scored', 'ict_index', 'influence', 'key_passes', 'loaned_in',
             'loaned_out', 'minutes', 'offside', 'open_play_crosses', 'own_goals', 'penalties_conceded',
             'penalties_missed', 'penalties_saved', 'recoveries', 'red_cards', 'saves', 'selected',
             'tackled', 'tackles', 'target_missed', 'threat', 'total_points', 'transfers_balance',
-            'transfers_in', 'transfers_out', 'cost', 'winning_goals', 'yellow_cards']
+            'transfers_in', 'transfers_out', 'winning_goals', 'yellow_cards']
 
 
 def get_aggregate_features():
