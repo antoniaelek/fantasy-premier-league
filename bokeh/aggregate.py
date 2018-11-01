@@ -181,7 +181,8 @@ source = ColumnDataSource(data=dict(
     fill_alpha=[0.3]*len(DF['name'])))
 
 tools = "hover,crosshair,pan,wheel_zoom,zoom_in,zoom_out,box_zoom," \
-        "undo,redo,reset,tap,save,box_select,poly_select,lasso_select,"
+        "undo,redo,reset,tap,save,box_select,lasso_select,"
+
 p = figure(tools=tools, x_axis_label=to_pretty(x_agg_func + "_" + x_metric), y_axis_label=to_pretty(y_agg_func + "_" + y_metric))
 p.hover.tooltips = """<table>
 <tr style="line-height: 0.8; font-size: 17px; font-weight: bold; padding:0; margin: 0">
@@ -210,4 +211,8 @@ selects = layout([[position_div],
                   [y_agg_div],
                   [widgetbox(select_agg_func_y)],
                   [widgetbox(select_metric_y)]])
-curdoc().add_root(layout([[selects, p]], sizing_mode='scale_height'))
+curdoc().add_root(gridplot([selects, p],
+                           ncols=2,
+                           toolbar_location="right",
+                           toolbar_options={'logo': None},
+                           sizing_mode='scale_height'))

@@ -23,6 +23,7 @@ def main():
     print("Fetching current gameweek...")
     json = requests.get(URL).json()
     curr_gameweek = json['next-event'] - 1
+    print("Current gameweek: " + str(curr_gameweek))
 
     # Generate html files with players data
     print("Generating html stats for players comparison...")

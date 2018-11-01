@@ -17,7 +17,7 @@ def compare_players(season, curr_gw):
     df = functions.get_cumulative_data(base_path=base_path + "scraper/", season=season)
     df = df.fillna(0)
 
-    player_stats(df, base_path)
+    #player_stats(df, base_path)
     player_plots(df, base_path, curr_gw)
 
 
@@ -33,7 +33,6 @@ def player_stats(df, base_path):
         player4 = players4[i]
 
         val = (df[df.index.str.startswith(player4)])
-        # print(val.index[0])
 
         md_file = base_path + 'web/static/assets/bokeh/player_stats/' + player3 + '_text.html'
 
@@ -97,6 +96,33 @@ def player_plots(df, base_path, gw_cnt):
     players = df["full_name_id"].values.tolist()
     players3 = df["full_name_code"].values.tolist()
     players4 = df["full_name_id"].values.tolist()
+    tools = "hover"
+    tooltips = """<table style="padding: 5px; color: #888;">
+            <tr style="line-height: 0.8; font-size: 17px; font-weight: bold; padding:10; margin: 0">
+                <td colspan=3" style="padding:5px;">@name</td>
+            </tr>
+            <tr style="line-height: 0.8; font-size: 12px; padding:5px !important; margin: 5px;">
+                <td style="font-weight: bold; padding:5px;">Gameweek</td>
+                <td style="padding:5px;">@x</td>
+            </tr>
+            <tr style="line-height: 0.8; font-size: 12px; padding:5px !important; margin: 5px;">
+                <td style="font-weight: bold; padding:5px;">Price</td>
+                <td style="padding:5px;">@y_value £</td>
+            </tr>
+            <tr style="line-height: 0.8; font-size: 12px; padding:5px !important; margin: 5px;">
+                <td style="font-weight: bold; padding:5px;">Points</td>
+                <td style="padding:5px;">@y_pts</td>
+            </tr>
+            <tr style="line-height: 0.8; font-size: 12px; padding:5px !important; margin: 5px;">
+                <td style="font-weight: bold; padding:5px;">Minutes</td>
+                <td style="padding:5px;">@y_mins</td>
+            </tr>
+            <tr style="line-height: 0.8; font-size: 12px; padding:5px !important; margin: 5px;">
+                <td style="font-weight: bold; padding:5px;">ICT</td>
+                <td style="padding:5px;">@y_ict</td>
+            </tr>
+        </table>
+        """
 
     for i in range(0, len(players)):
         player3 = players3[i]
@@ -105,28 +131,35 @@ def player_plots(df, base_path, gw_cnt):
         # get plots data
         val = functions.get_player_data(base_path=base_path+"scraper/", player=player4)
         source = ColumnDataSource(
-            data=dict(x=val['gw'], y_value=val['value'] / 10, y_pts=val['total_points'], y_mins=val['minutes'],
+            data=dict(name=([player3[:player3.index('_')]] * len(val['gw'])),
+                      x=val['gw'],
+                      y_value=val['value'] / 10,
+                      y_pts=val['total_points'],
+                      y_mins=val['minutes'],
                       y_ict=val['ict_index']))
 
         # plots
-        p_price = figure(y_axis_label='£', tools="", x_range=(1, gw_cnt))
+        p_price = figure(y_axis_label='£', tools=tools, x_range=(1, gw_cnt))
         p_price.line('x', 'y_value', source=source, line_width=2)
+        p_price.hover.tooltips = tooltips
 
-        p_pts = figure(y_axis_label='pts', tools="", x_range=(1, gw_cnt))
+        p_pts = figure(y_axis_label='Points', tools=tools, x_range=(1, gw_cnt))
         p_pts.line('x', 'y_pts', source=source, line_width=2)
+        p_pts.hover.tooltips = tooltips
 
-        p_mins = figure(y_axis_label='mins', tools="", x_range=(1, gw_cnt), y_range=(0, 100))
+        p_mins = figure(y_axis_label='Minutes', tools=tools, x_range=(1, gw_cnt), y_range=(0, 100))
         p_mins.line('x', 'y_mins', source=source, line_width=2)
+        p_mins.hover.tooltips = tooltips
 
-        p_ict = figure(x_axis_label='gw', y_axis_label='ict', tools="", x_range=(1, gw_cnt))
+        p_ict = figure(x_axis_label='GW', y_axis_label='ICT', tools=tools, x_range=(1, gw_cnt))
         p_ict.line('x', 'y_ict', source=source, line_width=2)
+        p_ict.hover.tooltips = tooltips
 
         p = gridplot([p_price, p_pts, p_mins, p_ict], ncols=1, plot_width=300, plot_height=120, toolbox=None,
                      toolbar_options={'logo': None})
 
         fig = row(p)
-        # show(fig)
-        #
+
         md_file = base_path + 'web/static/assets/bokeh/player_stats/' + player3 + '.html'
         print("Generating " + md_file + "...")
         output_file(md_file)
@@ -158,7 +191,13 @@ def display_vpc(df, out_file):
         ("Value per cost", "@vpc_ratio")
     ]
 
-    p.scatter(x='now_cost', y='points_per_game', radius='circle_size', fill_alpha='fill_alpha', color={'field': 'position', 'transform': color_map}, source=source)
+    p.scatter(x='now_cost',
+              y='points_per_game',
+              radius='circle_size',
+              fill_alpha='fill_alpha',
+              color={'field': 'position', 'transform': color_map},
+              source=source,
+              toolbar_options={'logo': None})
 
     fig = row(p)
     # show(fig)
