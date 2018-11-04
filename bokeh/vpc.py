@@ -1,7 +1,7 @@
 from bokeh.models import CategoricalColorMapper
 from bokeh.io import curdoc
 from bokeh.plotting import figure
-from bokeh.layouts import column, gridplot
+from bokeh.layouts import column, gridplot, layout, WidgetBox
 from bokeh.models import ColumnDataSource
 from bokeh.models.widgets import Select, Div
 from bokeh.palettes import d3
@@ -116,4 +116,8 @@ P.scatter(x='now_cost',
           color={'field': 'position', 'transform': COLOR_MAP},
           source=SOURCE)
 
-curdoc().add_root(column(SELECT, P, width=600, height=600, sizing_mode="scale_width"))
+curdoc().add_root(layout([[WidgetBox(SELECT)], [P]],
+                         toolbar_location="right",
+                         toolbar_options={'logo': None},
+                         plot_height=100,
+                         sizing_mode='scale_width'))

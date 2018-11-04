@@ -11,12 +11,26 @@ a:focus, a:hover {
     text-decoration: none !important;
 }
 
+/* Fix for hidden bokeh selects (I suppose webpage css messes up bokeh's size calculation) */
+#agg > div > div {
+    height: 800px !important;
+ }
+
+#agg > div > div > div {
+    height: 340px !important;
+ }
+
+.bk-widget-box {
+    margin-left: 20px;
+}
+
 iframe, .pldropdown{
     display: block !important;
     max-width: 100% !important;
     min-width: fit-content !important;
+    width: 100%;
 }
-.pldropdown1, .pldropdown2 {
+#pldropdown1, #pldropdown2 {
     margin: 40px 0 20px 0;
 }
 
@@ -80,7 +94,7 @@ input::-moz-focus-inner {
 
 input, select, textarea {
 	display: block;
-	height: 31px;
+	height: 28px;
 	padding: 0 12px;
 	background-color: #fff;
 	background-image: none;
@@ -96,7 +110,7 @@ input:focus, select:focus, textarea:focus {
 }
 select {
 	font-family: 'Source Sans Pro', sans-serif !important;
-	font-size: 17pt !important;
+	font-size: 16pt !important;
 	font-weight: 300 !important;
 	color: #888 !important;
 }

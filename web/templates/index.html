@@ -15,10 +15,10 @@
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}"/>
 
         <link
-            href="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css"
+            href="https://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css"
             rel="stylesheet" type="text/css">
         <link
-            href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.css"
+            href="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.css"
             rel="stylesheet" type="text/css">
 	</head>
 	<body class="is-preload">
@@ -126,8 +126,8 @@
 							</header>
 
                             <div class="row" align="center">
-                                <div class="col-xs-1 col-sm-2 col-md-3"></div>
-                                <div class="hidden-xs col-sm-8 col-md-6">
+                                <div class="xs-xs col-sm-2 col-md-3"></div>
+                                <div class="col-xs-12 col-sm-8 col-md-6">
                                     {{ vpc|indent(4)|safe }}
                                 </div>
                                 <div class="col-xs-1 col-sm-2 col-md-3"></div>
@@ -145,7 +145,8 @@
 							</header>
 
                             <div class="row" align="center">
-                                <div class="col-md-12">
+                                <div class="hidden-xs col-sm-2 col-md-3"></div>
+                                <div class="col-xs-12 col-sm-8 col-md-6" id="agg">
                                     {{ aggregate|indent(4)|safe }}
                                 </div>
                             </div>
@@ -156,11 +157,11 @@
 			</div>
 
 		<!-- Footer -->
-			<div id="footer">
+			<div id="footer" class="hidden-xs">
 
 				<!-- Copyright -->
 				  <ul class="copyright">
-					<li>&copy; <a href="http://antonia.elek.hr">aelek</a></li>
+					<li>&copy; <a href="https://antonia.elek.hr">aelek</a></li>
 					<li>FPL Data retrieval: <a href="https://github.com/vaastav/Fantasy-Premier-League">@vaastav</a></li>
 					<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 				  </ul>
@@ -168,8 +169,8 @@
 			</div>
 
 		<!-- Scripts -->
-            <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
-	    	<script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.js"></script>
+            <script src="https://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
+	    	<script src="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.js"></script>
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 			<script src="static/js/jquery.min.js"></script>
 			<script src="static/js/jquery.scrolly.min.js"></script>

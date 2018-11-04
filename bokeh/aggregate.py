@@ -1,6 +1,6 @@
 from bokeh.io import curdoc
 from bokeh.plotting import figure
-from bokeh.layouts import layout, Row, Column, widgetbox, gridplot
+from bokeh.layouts import layout, Row, Column, WidgetBox, gridplot
 from bokeh.models import ColumnDataSource, CategoricalColorMapper
 from bokeh.models.widgets import Select, Div
 from bokeh.palettes import d3
@@ -146,15 +146,15 @@ def update_y_metric(attrname, old, new):
 features = functions.get_features_for_aggregation()
 aggregates = functions.get_aggregate_functions()
 
-position_div = Div(text="""<h3>Filter by Player Position</h3>""")
+position_div = Div(text="""<h3 style="padding: 0 0 5px 0;">Filter by Player Position</h3>""")
 palette = d3['Category10'][4]
 color_map = CategoricalColorMapper(factors=['Goalkeeper', 'Defender', 'Midfielder', 'Forward'], palette=palette)
 select_position = Select(options=['All', 'Goalkeepers', 'Defenders', 'Midfielders', 'Forwards'])
 
-x_agg_div = Div(text="""<h3>X Metrics</h3>""")
+x_agg_div = Div(text="""<h3 style="padding: 0 0 5px 0;">X Metrics</h3>""")
 select_agg_func_x = Select(options=[to_pretty(a) for a in aggregates], value=to_pretty(x_agg_func))
 
-y_agg_div = Div(text="""<h3>Y Metrics</h3>""")
+y_agg_div = Div(text="""<h3 style="padding: 0 0 5px 0;">Y Metrics</h3>""")
 select_agg_func_y = Select(options=[to_pretty(a) for a in aggregates], value=to_pretty(y_agg_func))
 
 select_metric_x = Select(options=[to_pretty(f) for f in features], value=to_pretty(x_metric))
@@ -205,16 +205,9 @@ p.scatter(x='x', y='y',
           color={'field': 'position', 'transform': color_map},
           source=source)
 
-selects = layout([[position_div],
-                  [widgetbox(select_position)],
-                  [x_agg_div],
-                  [widgetbox(select_agg_func_x)],
-                  [widgetbox(select_metric_x)],
-                  [y_agg_div],
-                  [widgetbox(select_agg_func_y)],
-                  [widgetbox(select_metric_y)]])
-curdoc().add_root(gridplot([selects, p],
-                           ncols=2,
-                           toolbar_location="right",
-                           toolbar_options={'logo': None},
-                           sizing_mode='scale_height'))
+widgets = WidgetBox(position_div, select_position,
+                    x_agg_div, select_agg_func_x, select_metric_x,
+                    y_agg_div, select_agg_func_y, select_metric_y)
+
+curdoc().add_root(layout([[widgets], [p]],
+                         sizing_mode='scale_width'))

@@ -3,7 +3,7 @@ from pathlib import Path
 from bokeh.models import CategoricalColorMapper
 from bokeh.io import output_file, save
 from bokeh.plotting import figure
-from bokeh.layouts import gridplot, row
+from bokeh.layouts import gridplot, row, layout
 from bokeh.models import ColumnDataSource
 from bokeh.palettes import d3
 import functions
@@ -17,7 +17,7 @@ def compare_players(season, curr_gw):
     df = functions.get_cumulative_data(base_path=base_path + "scraper/", season=season)
     df = df.fillna(0)
 
-    #player_stats(df, base_path)
+    player_stats(df, base_path)
     player_plots(df, base_path, curr_gw)
 
 
@@ -43,13 +43,17 @@ def player_stats(df, base_path):
         print("Generating " + md_file + "...")
         with open(md_file, 'w', encoding='utf8') as f:
             f.write('<head><style>' +
-                    'body, table, td { font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #444; line-height: 0.8; font-size: 12px; } ' +
-                    'h1, h2, h3, h4, h5, h6 { margin: 10px 0 5px 0 !important; font-family: Helvetica, Arial, sans-serif; color: #34465d; font-weight: bold; line-height: 0.8; } ' +
-                    'h1{font-size:20px} h2{font-size:18px} h3{font-size:16px} h4{font-size:14px} h5{font-size:12px} h6{font-size:12px} ' +
+                    'body, table, td { font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; ' +
+                    'color: #444; line-height: 1.2; font-size: 12px; } ' +
+                    'h1, h2, h3, h4, h5, h6 { margin: 10px 0 5px 0 !important; ' +
+                    'font-family: Helvetica, Arial, sans-serif; color: #34465d; '
+                    'font-weight: bold; line-height: 0.8; } ' +
+                    'h1{font-size:20px} h2{font-size:18px} h3{font-size:16px} ' +
+                    'h4{font-size:14px} h5{font-size:12px} h6{font-size:12px} ' +
                     'td{ padding: 2px 5px 2px 5px; }</style></head>')
             f.write('<body><h1>' + val['full_name'][0] + '</h1>')
-            f.write('<table><tr><td colspan=2><h3>' + str(val['position'][0]) + ', ' + str(
-                val['price'][0]) + ' £</h3></td><td></td></tr>')
+            f.write('<table><tr><td colspan=2><h3>' + str(val['position'][0]) + ', ' +
+                    str(val['price'][0]) + ' £</h3></td><td></td></tr>')
             f.write('<tr><td><b>Team: </b>' + str(val['team_name'][0]) + '</td>' +
                     '<td><b>Status:</b> ' + str(val['avail_status'][0]) + '</td></tr>')
 
@@ -155,7 +159,11 @@ def player_plots(df, base_path, gw_cnt):
         p_ict.line('x', 'y_ict', source=source, line_width=2)
         p_ict.hover.tooltips = tooltips
 
-        p = gridplot([p_price, p_pts, p_mins, p_ict], ncols=1, plot_width=300, plot_height=120, toolbox=None,
+        p = gridplot([p_price, p_pts, p_mins, p_ict],
+                     ncols=1,
+                     plot_width=300,
+                     plot_height=120,
+                     toolbox=None,
                      toolbar_options={'logo': None})
 
         fig = row(p)
@@ -199,7 +207,14 @@ def display_vpc(df, out_file):
               source=source,
               toolbar_options={'logo': None})
 
-    fig = row(p)
+    l = layout([[p]],
+               toolbar_location="right",
+               toolbar_options={'logo': None},
+               plot_height=100,
+               plot_width=480,
+               sizing_mode='scale_width')
+
+    fig = l
     # show(fig)
     output_file(out_file)
     save(fig)
