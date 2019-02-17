@@ -5,8 +5,14 @@ Live at [fantasy.elek.hr](http://fantasy.elek.hr/).
 
 ## Running locally
   - Clone this repository
-  - If `scraper` folder is empty, run `git submodule update --init --recursive` to pull that submodule
-  
+  - Fetch latest data from `scraper` submodule
+  ```
+  git submodule update --init --recursive
+  git submodule update --init --recursive
+  cd scraper
+  git pull origin master
+  ```
+
 ### With Docker
   - Set the value of `IP` environment variable in `variables.env` to `127.0.0.1`
   - Run `docker-compose build`
@@ -15,11 +21,13 @@ Live at [fantasy.elek.hr](http://fantasy.elek.hr/).
   
 ### Natively
   - Run `pip install -r requirements.txt` to install requirements
-  - Set the `IP` environment variable to `127.0.0.1` (eq. in PowerShell run `$env:FPL_IP="127.0.0.1"`)
-  - Set the `FPL_SEASON` environment variable to `2018-19` (eq. in PowerShell run `$env:FPL_SEASON="2018-19"`)
-  - Run `python .\web\app.py`. Add `--skip-init` parameter after filename, if you want to skip (re)generating required static files for application on subsequent runs.
-  - In another termianl window, run `bokeh serve .\bokeh\vpc.py .\bokeh\aggregate.py --allow-websocket-origin=localhost:5000`
+  - Set the `IP` environment variable to `127.0.0.1` (eq. in PowerShell run `$env:FPL_IP="127.0.0.1"`, in Bash run `export FPL_IP="127.0.0.1"`)
+  - Set the `FPL_SEASON` environment variable to `2018-19` (eq. in PowerShell run `$env:FPL_SEASON="2018-19"`, in Bash run `export FPL_SEASON="2018-19")
+  - Run `python .\web\app.py`.
+  - In another terminal window, run `bokeh serve .\bokeh\vpc.py .\bokeh\aggregate.py --allow-websocket-origin=localhost:5000`
   - Application will be available at [localhost:5000](http://localhost:5000/)
+
+> Note: On subsequent runs, if you want to skip (re)generating required static files for application, run application with `skip-init` flag: `python .\web\app.py --skip-init`.
 
 ## Features
 Currently, there are three avaliable features
