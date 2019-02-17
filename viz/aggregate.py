@@ -19,7 +19,7 @@ BASE_PATH = APP_ROOT + "/"
 
 NO_CIRCLES = 40
 
-AGG_DF = pandas.read_csv(BASE_PATH + 'bokeh/data/aggregate_data.csv', encoding='latin_1', sep=';')
+AGG_DF = pandas.read_csv(BASE_PATH + 'viz/data/aggregate_data.csv', encoding='latin_1', sep=';')
 RAW_DF = functions.get_raw_data(BASE_PATH + 'scraper/', SEASON)
 
 DF_ALL = pandas.merge(AGG_DF, RAW_DF, on='name', how='outer')

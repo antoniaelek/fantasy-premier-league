@@ -4,7 +4,7 @@ import setup
 
 # Add bokeh folder to path
 SCRAPER_BASE_PATH = str(Path(os.path.dirname(os.path.abspath(__file__))).parent) + "/"
-sys.path.append(os.path.abspath(os.path.join(SCRAPER_BASE_PATH, 'bokeh')))
+sys.path.append(os.path.abspath(os.path.join(SCRAPER_BASE_PATH, 'viz')))
 
 from flask import Flask, render_template
 from bokeh.embed import server_document
@@ -13,7 +13,7 @@ SEASON = os.environ["FPL_SEASON"]
 IP = os.environ["FPL_IP"]
 BASE_PATH = str(Path(os.path.dirname(os.path.abspath(__file__))).parent)
 SCRAPER_BASE_PATH = BASE_PATH + "/scraper/"
-BOKEH_BASE_PATH = BASE_PATH + "/bokeh/"
+BOKEH_BASE_PATH = BASE_PATH + "/viz/"
 
 
 app = Flask(__name__)

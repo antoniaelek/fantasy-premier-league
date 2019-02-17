@@ -54,7 +54,7 @@ CURR_GW = DATA['next-event'] - 1
 APP_ROOT = str(Path(os.path.dirname(os.path.abspath(__file__))).parent)  # refers to application_top
 BASE_PATH = APP_ROOT + "/"
 
-DF = pandas.read_csv(BASE_PATH + 'bokeh/data/vpc_data.csv', encoding='latin_1', sep=';')
+DF = pandas.read_csv(BASE_PATH + 'viz/data/vpc_data.csv', encoding='latin_1', sep=';')
 DF_GKP = DF[DF.position == 'Goalkeeper']
 DF_DEF = DF[DF.position == 'Defender']
 DF_MID = DF[DF.position == 'Midfielder']

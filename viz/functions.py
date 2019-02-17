@@ -171,7 +171,7 @@ def get_cumulative_data(base_path, season="2018-19"):
 
 def get_gameweek_data(base_path, season, curr_gw):
     df1 = pandas.DataFrame()
-    for f in glob.glob(base_path + 'data/'+season+'/gws/*'):
+    for f in glob.glob(base_path + 'data/'+season+'/gws/gw*'):
         gw = int(f[-5:-4])
         df_tmp = pandas.read_csv(f, encoding='latin_1')
         df_tmp['name'] = df_tmp['name'].str.replace('_', ' ')
