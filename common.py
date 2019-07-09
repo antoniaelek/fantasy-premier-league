@@ -1,0 +1,3 @@
+BASE_PATH = './'
+SEASON = '2018-19'
+CURR_GW = 38

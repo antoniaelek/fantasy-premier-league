@@ -1,24 +1,13 @@
 from functions import  calc_vpc
+from visuals import map_position_to_color
+from visuals import colors
 import plotly
 import plotly.plotly as py
 import plotly.graph_objs as go
 
-colors = ['rgba(255, 182, 0, .9)', 'rgba(255, 0, 193, .9)', 'rgba(255, 182, 193, .9)']
-
-BASE_PATH = './'
-SEASON = '2018-19'
-CURR_GW = 38
-
-
-def map_position_to_color(position):
-    if position == 'Goalkeeper':
-        return 'rgba(0,53,166, 0.4)'
-    elif position == 'Defender':
-        return 'rgba(101,255,71, 0.4)'
-    elif position == 'Midfielder':
-        return 'rgba(254,213,0, 0.4)'
-    else:
-        return 'rgba(236,0,0, 0.4)'
+from common import BASE_PATH
+from common import SEASON
+from common import CURR_GW
 
 
 def get_trace(df, position):
