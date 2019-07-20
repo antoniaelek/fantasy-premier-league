@@ -5,6 +5,11 @@ layout: null
 @import url("pygment_highlights.css");
 
 /* --- General --- */
+.row{
+	margin-right:0;
+	margin-left:0;
+}
+
 .modebar{
 	display: none !important;
 }
@@ -21,7 +26,7 @@ layout: null
 }
 
 .full {
-	min-height: 70vh;
+	min-height: 100vh;
 }
 
 .center-parent{
@@ -50,10 +55,10 @@ layout: null
 .fpl-2 { background-color: #00ed87 }
 .fpl-3 { background-color: #ebed00 }
 .fpl-4 { background-color: #00ecee }
-.fpl-gk-1 { background-image: url("../img/fpl-gk-1.png") }
-.fpl-gk-2 { background-image: url("../img/fpl-gk-2.png") }
-.fpl-gk-3 { background-image: url("../img/fpl-gk-3.png") }
-.fpl-gk-4 { background-image: url("../img/fpl-gk-4.png") }
+.fpl-gk-1 { background-image: url("../img/fpl-gk-1.png"); background-position-x: left; }
+.fpl-gk-2 { background-image: url("../img/fpl-gk-2.png"); background-position-x: right; }
+.fpl-gk-3 { background-image: url("../img/fpl-gk-3.png"); background-position-x: left; }
+.fpl-gk-4 { background-image: url("../img/fpl-gk-4.png"); background-position-x: right; }
 
 body {
   font-family: 'Lora', 'Times New Roman', serif;
