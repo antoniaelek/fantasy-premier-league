@@ -5,9 +5,25 @@ layout: null
 @import url("pygment_highlights.css");
 
 /* --- General --- */
+.iframe-plot-container {
+	display: flex;
+	height: 100%; 
+	flex-direction: row;
+	overflow: hidden;
+}
+	
+.iframe-plot { 
+	flex-grow: 1; 
+	border: none; 
+	margin: 0; 
+	padding: 0; 
+}
+
 .row{
 	margin-right:0;
 	margin-left:0;
+	padding-bottom: 20px;
+	padding-top: 10px;
 }
 
 .modebar{
@@ -26,7 +42,7 @@ layout: null
 }
 
 .full {
-	min-height: 100vh;
+	min-height: 80vh;
 }
 
 .center-parent{
@@ -59,6 +75,18 @@ layout: null
 .fpl-gk-2 { background-image: url("../img/fpl-gk-2.png"); background-position-x: right; }
 .fpl-gk-3 { background-image: url("../img/fpl-gk-3.png"); background-position-x: left; }
 .fpl-gk-4 { background-image: url("../img/fpl-gk-4.png"); background-position-x: right; }
+.fpl-df-1 { background-image: url("../img/fpl-df-1.png"); background-position-x: left; }
+.fpl-df-2 { background-image: url("../img/fpl-df-2.png"); background-position-x: right; }
+.fpl-df-3 { background-image: url("../img/fpl-df-3.png"); background-position-x: left; }
+.fpl-df-4 { background-image: url("../img/fpl-df-4.png"); background-position-x: right; }
+.fpl-md-1 { background-image: url("../img/fpl-md-1.png"); background-position-x: left; }
+.fpl-md-2 { background-image: url("../img/fpl-md-2.png"); background-position-x: right; }
+.fpl-md-3 { background-image: url("../img/fpl-md-3.png"); background-position-x: left; }
+.fpl-md-4 { background-image: url("../img/fpl-md-4.png"); background-position-x: right; }
+.fpl-fw-1 { background-image: url("../img/fpl-fw-1.png"); background-position-x: left; }
+.fpl-fw-2 { background-image: url("../img/fpl-fw-2.png"); background-position-x: right; }
+.fpl-fw-3 { background-image: url("../img/fpl-fw-3.png"); background-position-x: left; }
+.fpl-fw-4 { background-image: url("../img/fpl-fw-4.png"); background-position-x: right; }
 
 body {
   font-family: 'Lora', 'Times New Roman', serif;
