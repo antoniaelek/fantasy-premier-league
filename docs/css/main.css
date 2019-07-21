@@ -5,6 +5,14 @@ layout: null
 @import url("pygment_highlights.css");
 
 /* --- General --- */
+.offset:before { 
+    display: block; 
+    content: " "; 
+    height: 50px;      /* Give height of your fixed element */
+	margin-top: -50px; /* Give negative margin of your fixed element */    
+	visibility: hidden; 
+}
+
 .iframe-plot-container {
 	display: flex;
 	height: 100%; 
@@ -42,6 +50,7 @@ layout: null
 }
 
 .full {
+	padding-top: 30px;
 	min-height: 80vh;
 }
 
@@ -113,6 +122,7 @@ a {
 a:hover,
 a:focus {
   color: {{ site.hover-col }};
+  text-decoration: none;
 }
 blockquote {
   color: #808080;
