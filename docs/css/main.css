@@ -70,7 +70,8 @@ layout: null
 .fpl-gk-1, .fpl-gk-2, .fpl-gk-3, .fpl-gk-4,
 .fpl-df-1, .fpl-df-2, .fpl-df-3, .fpl-df-4,
 .fpl-md-1, .fpl-md-2, .fpl-md-3, .fpl-md-4,
-.fpl-fw-1, .fpl-fw-2, .fpl-fw-3, .fpl-fw-4 {
+.fpl-fw-1, .fpl-fw-2, .fpl-fw-3, .fpl-fw-4,
+.fpl-pl-1, .fpl-pl-2, .fpl-pl-3, .fpl-pl-4 {
 	background-size: cover;
 	color: white;
 	margin: 0;
@@ -96,6 +97,10 @@ layout: null
 .fpl-fw-2 { background-image: url("../img/fpl-fw-2.png"); background-position-x: right; }
 .fpl-fw-3 { background-image: url("../img/fpl-fw-3.png"); background-position-x: left; }
 .fpl-fw-4 { background-image: url("../img/fpl-fw-4.png"); background-position-x: right; }
+.fpl-pl-1 { background-image: url("../img/fpl-pl-1.png"); background-position-x: left; }
+.fpl-pl-2 { background-image: url("../img/fpl-pl-2.png"); background-position-x: right; }
+.fpl-pl-3 { background-image: url("../img/fpl-pl-3.png"); background-position-x: left; }
+.fpl-pl-4 { background-image: url("../img/fpl-pl-4.png"); background-position-x: right; }
 
 body {
   font-family: 'Lora', 'Times New Roman', serif;
