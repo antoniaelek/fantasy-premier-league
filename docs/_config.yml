@@ -4,12 +4,12 @@
 # baseurl is the website's URL without the hostname
 
 # If you are building a simple GitHub user page (https://username.github.io) then use these settings:
-# url: "https://fantasy.antonia.elek.hr"
+# url: "https://antonia.elek.hr"
 # baseurl: ""
 
 # If you are building a GitHub project page then use these settings:
-url: "http://antoniaelek.github.io/tmp"
-baseurl: "/tmp"
+url: "http://antonia.elek.hr"
+baseurl: "/fantasy-premier-league"
 
 # Name of website
 title: Fantasy Premier League
@@ -22,11 +22,13 @@ description: Because out of all the unimportant things, football is the most imp
 # List of links in the navigation bar
 navbar-links:
   Home: ""
-  Value Per Cost: "vpc"
-  Goalkeepers: "goalkeepers"
-  Defenders: "defenders"
-  Midfielders: "midfielders"
-  Forwards: "forwards"
+  Players Comparison: "players-comparison"
+  Value vs Cost: "value-cost"
+  By Position:
+    - Goalkeepers: "goalkeepers"
+    - Defenders: "defenders"
+    - Midfielders: "midfielders"
+    - Forwards: "forwards"
 
 # Image to show in the navigation bar - image must be a square (width = height)
 # Remove this parameter if you don't want an image in the navbar
@@ -34,7 +36,7 @@ navbar-links:
 
 # If you want to have an image logo in the top-left corner instead of the title text,
 # then specify the following parameter
-title-img: /tmp/img/epl-wide.png
+title-img: /img/epl-wide.png
 
 # --- Background colour/image options --- #
 
@@ -42,7 +44,7 @@ title-img: /tmp/img/epl-wide.png
 
 navbar-col: "#404040"
 navbar-text-col: "#F5F5F5"
-navbar-children-col: "#F5F5F5"
+navbar-children-col: "#404040"
 page-col: "#404040"
 link-col: "#F5F5F5"
 hover-col: "#F5F5F5"
@@ -72,14 +74,14 @@ social-network-links:
   rss: true
   email: "antoniaelek@hotmail.com"
 #  facebook: daattali
-  github: antoniaelek
-  gitlab: antoniaelek
+  github: antoniaelek/fantasy-premier-league
+#  gitlab: antoniaelek
   twitter: antoniaelek
 #  reddit: yourname
 #  google-plus: +DeanAttali
   linkedin: antoniaelek
 #  xing: yourname
-  stackoverflow: "5834989/antonia"
+#  stackoverflow: "5834989/antonia"
 #  snapchat: deanat78
 #  instagram: deanat78
 #  youtube: user/deanat78
@@ -88,7 +90,7 @@ social-network-links:
 #  steam: deanat78
 #  twitch: yourname
 #  yelp: yourname
-  cv: antoniaelek
+#  cv: antoniaelek
 
 # Select which share links to show in posts
 share-links-active:
@@ -202,6 +204,7 @@ prose:
   media: 'img'
   ignore:
     - 404.html
+    - blog.html
     - LICENSE
     - feed.xml
     - _config.yml

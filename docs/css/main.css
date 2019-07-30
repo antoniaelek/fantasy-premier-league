@@ -5,6 +5,14 @@ layout: null
 @import url("pygment_highlights.css");
 
 /* --- General --- */
+button, input, select, textarea {
+	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: inherit;
+    line-height: inherit;
+    color: #404040;
+    border: #404040;
+}
+
 .offset:before { 
     display: block; 
     content: " "; 
@@ -32,6 +40,14 @@ layout: null
 	margin-left:0;
 	padding-bottom: 20px;
 	padding-top: 10px;
+}
+
+.row-tight{
+	margin-right:0;
+	margin-left:0;
+	margin-top:-20px;
+	padding-bottom: 0px !important;
+	padding-top: 0px !important;
 }
 
 .modebar{
@@ -73,6 +89,7 @@ layout: null
 .fpl-fw-1, .fpl-fw-2, .fpl-fw-3, .fpl-fw-4,
 .fpl-pl-1, .fpl-pl-2, .fpl-pl-3, .fpl-pl-4 {
 	background-size: cover;
+	background-repeat: none;
 	color: white;
 	margin: 0;
 }
@@ -360,8 +377,8 @@ img {
   }
   .navbar-custom .nav .navlinks-container .navlinks-children a {
     padding-left: 10px;
-    border: 1px solid #eaeaea;
-    border-width: 0 1px 1px;
+/*    border: 1px solid #eaeaea;
+    border-width: 0 1px 1px;*/
   }
 }
 
