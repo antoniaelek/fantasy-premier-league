@@ -22,8 +22,8 @@ description: Because out of all the unimportant things, football is the most imp
 # List of links in the navigation bar
 navbar-links:
   Home: ""
-  Players Comparison: "players-comparison"
   Value vs Cost: "value-cost"
+  By Club: "clubs"
   By Position:
     - Goalkeepers: "goalkeepers"
     - Defenders: "defenders"
