@@ -1,8 +1,6 @@
 # Fantasy Premier League Stats, Visualizations &amp; Analysis
 
 ## Features
-Currently avaliable features
-
   - Teams Analysis
     - Teams with easiest schedule
     - In-form teams  
