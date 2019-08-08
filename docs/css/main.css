@@ -83,6 +83,18 @@ button, input, select, textarea {
 	transform: translate(-50%, -50%);
 }
 
+.fpl-1, .fpl-2, .fpl-3, 
+.fpl-4, .fpl-5, .fpl-6, 
+.fpl-7, .fpl-8, .fpl-9,
+.fpl-gk-1, .fpl-gk-2, .fpl-gk-3, .fpl-gk-4,
+.fpl-df-1, .fpl-df-2, .fpl-df-3, .fpl-df-4,
+.fpl-md-1, .fpl-md-2, .fpl-md-3, .fpl-md-4,
+.fpl-fw-1, .fpl-fw-2, .fpl-fw-3, .fpl-fw-4,
+.fpl-pl-1, .fpl-pl-2, .fpl-pl-3, .fpl-pl-4 {
+	color: white;
+	margin: 0;
+}
+
 .fpl-gk-1, .fpl-gk-2, .fpl-gk-3, .fpl-gk-4,
 .fpl-df-1, .fpl-df-2, .fpl-df-3, .fpl-df-4,
 .fpl-md-1, .fpl-md-2, .fpl-md-3, .fpl-md-4,
@@ -90,14 +102,20 @@ button, input, select, textarea {
 .fpl-pl-1, .fpl-pl-2, .fpl-pl-3, .fpl-pl-4 {
 	background-size: cover;
 	background-repeat: none;
-	color: white;
-	margin: 0;
 }
 
+/* fpl */
 .fpl-1 { background-color: #ef015b }
 .fpl-2 { background-color: #00ed87 }
 .fpl-3 { background-color: #ebed00 }
 .fpl-4 { background-color: #00ecee }
+/* dark */
+.fpl-5 { background-color: #454545 }
+.fpl-6 { background-color: #4a4a4a }
+.fpl-7 { background-color: #4f4f4f }
+.fpl-8 { background-color: #555555 }
+.fpl-9 { background-color: #5a5a5a }
+/* imgs */
 .fpl-gk-1 { background-image: url("../img/fpl-gk-1.png"); background-position-x: left; }
 .fpl-gk-2 { background-image: url("../img/fpl-gk-2.png"); background-position-x: right; }
 .fpl-gk-3 { background-image: url("../img/fpl-gk-3.png"); background-position-x: left; }

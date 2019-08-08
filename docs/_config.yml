@@ -23,7 +23,7 @@ description: Because out of all the unimportant things, football is the most imp
 navbar-links:
   Home: ""
   Value vs Cost: "value-cost"
-  By Club: "clubs"
+  By Team: "teams"
   By Position:
     - Goalkeepers: "goalkeepers"
     - Defenders: "defenders"
