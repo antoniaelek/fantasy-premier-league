@@ -10,3 +10,8 @@
     - Defenders ranked by achievements and errors
     - Midfielders ranked by achievements and errors
     - Forwards ranked by achievements and errors
+
+## Acknowledgements
+- Data by [vaastav](https://github.com/vaastav/Fantasy-Premier-League/)
+- Images by [footyrenders](https://footyrenders.com) & [premierleague](https://premierleague.com)
+- Theme by [beautiful-jekyll](https://deanattali.com/beautiful-jekyll/)
