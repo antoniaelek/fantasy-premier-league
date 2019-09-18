@@ -164,7 +164,7 @@ def main():
     print('Generating VPC plot...')
     vpc = calc_vpc(BASE_PATH, SEASON, CURR_GW)
     fig = plot_vpc(vpc)
-    chart_studio.plotly.plot(fig, filename="vpc")
+    chart_studio.plotly.plot(fig, filename="vpc", auto_open=False)
     
 
 if __name__ == '__main__':

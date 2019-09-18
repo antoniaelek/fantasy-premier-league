@@ -41,22 +41,22 @@ def main():
     print('Getting performance data...')
     df=get_performance_data(SEASON, BASE_PATH)
 
-    print('Generating goalkeepers performance plot...')
+    print('Generating goalkeepers performance plots...')
     gk_plot(df[df.position == 'Goalkeeper'])
     
-    print('Generating defenders performance plot...')
+    print('Generating defenders performance plots...')
     def_plot(df[df.position == 'Defender'])
     
-    print('Generating midfielders performance plot...')
+    print('Generating midfielders performance plots...')
     mid_plot(df[df.position == 'Midfielder'])
     
-    print('Generating forwards performance plot...')
+    print('Generating forwards performance plots...')
     fwd_plot(df[df.position == 'Forward'])
     
     print('Generating VPC plot...')
     vpc = calc_vpc(BASE_PATH, SEASON, CURR_GW)
     fig = plot_vpc(vpc)
-    chart_studio.plotly.plot(fig, filename="vpc")
+    chart_studio.plotly.plot(fig, filename="vpc", auto_open=False)
     
     print('Generating teams fixtures plot...')
     fix = next_fixtures(SEASON, BASE_PATH, no_fixtures=4)

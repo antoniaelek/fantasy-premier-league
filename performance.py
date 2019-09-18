@@ -216,19 +216,19 @@ def generate_performance_plots(points_dict, df, position, aggregate="average"):
     
     plot3 = get_figure(df, {'web_name':'Name'}, {'value':'Value'}, 'value', 'white', show_dropdown=True)
 #     plotly.offline.iplot(plot3)
-    chart_studio.plotly.plot(plot3, filename=(position+"value"))
+    chart_studio.plotly.plot(plot3, filename=(position+"value"), auto_open=False)
     
     y1 = {'achievements':'Achievements'}
     for a in filter_achievements(points_dict).keys(): y1[aggregate + a]=to_pretty_print(aggregate + a)
     plot1 = get_figure(df, {'web_name':'Name'}, y1, 'achievements', 'white', show_dropdown=True)
 #     plotly.offline.iplot(plot1)
-    chart_studio.plotly.plot(plot1, filename=(position+"achievements"))
+    chart_studio.plotly.plot(plot1, filename=(position+"achievements"), auto_open=False)
 
     y2 = {'errors':'Errors'}
     for e in filter_errors(points_dict).keys(): y2[aggregate + e]=to_pretty_print(aggregate + e)
     plot2 = get_figure(df, {'web_name':'Name'}, y2, 'errors', 'white', show_dropdown=True)
 #     plotly.offline.iplot(plot2)
-    chart_studio.plotly.plot(plot2, filename=(position+"errors"))
+    chart_studio.plotly.plot(plot2, filename=(position+"errors"), auto_open=False)
 
     return df
     
@@ -336,16 +336,16 @@ def main():
     print('Getting performance data...')
     df=get_performance_data(SEASON, BASE_PATH)
 
-    print('Generating goalkeepers performance plot...')
+    print('Generating goalkeepers performance plots...')
     gk_plot(df[df.position == 'Goalkeeper'])
     
-    print('Generating defenders performance plot...')
+    print('Generating defenders performance plots...')
     def_plot(df[df.position == 'Defender'])
     
-    print('Generating midfielders performance plot...')
+    print('Generating midfielders performance plots...')
     mid_plot(df[df.position == 'Midfielder'])
     
-    print('Generating forwards performance plot...')
+    print('Generating forwards performance plots...')
     fwd_plot(df[df.position == 'Forward'])
         
 

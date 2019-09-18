@@ -134,7 +134,7 @@ def next_fixtures_plot(season, base_path, data, limit_diff=100.0):
     fig.update_scenes(bgcolor='rgba(0,0,0,0)')
 
     fig.layout.update(plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)')
-    chart_studio.plotly.plot(fig, filename="easiest_schedule")
+    chart_studio.plotly.plot(fig, filename="easiest_schedule", auto_open=False)
     #plotly.offline.iplot(fig)
 
 
@@ -185,7 +185,7 @@ def form_plot(season, base_path, data, no_fixtures=6,limit_form=-10):
     fig.update_scenes(bgcolor='rgba(0,0,0,0)')
 
     fig.layout.update(plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)')
-    chart_studio.plotly.plot(fig, filename="club_form")
+    chart_studio.plotly.plot(fig, filename="club_form", auto_open=False)
     #plotly.offline.iplot(fig)
 
 
