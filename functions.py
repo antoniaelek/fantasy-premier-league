@@ -3,10 +3,6 @@ import os
 import pandas
 import sys
 
-if os.name == 'nt':
-    sys._enablelegacywindowsfsencoding()
-
-
 def calc_goals_conceded_per_game(row):
     val = 0
     if row['minutes'] > 0:
@@ -46,6 +42,12 @@ def calc_popularity(row):
     return round(val, 2)
 
 
+def calc_relative_difficulty(row):
+    diff = row['difficulty']-row['difficulty_other']
+    diff = diff + 1 if diff >= 0 else 1/((0-diff)+1)
+    return diff
+
+
 def map_position(row):
     if row['element_type'] == 1:
         val = 'Goalkeeper'
@@ -73,49 +75,63 @@ def map_status(row):
 
 
 def map_team(row):
-    if row['team_code'] == 3:
+    if row['team_code'] == 1:
+        val = 'Man Utd'
+    elif row['team_code'] == 3:
         val = 'Arsenal'
-    elif row['team_code'] == 91:
-        val = 'Bournemouth'
-    elif row['team_code'] == 36:
-        val = 'Brighton'
-    elif row['team_code'] == 90:
-        val = 'Burnley'
-    elif row['team_code'] == 97:
-        val = 'Cardiff'
+    elif row['team_code'] == 4:
+        val = 'Newcastle'
+    elif row['team_code'] == 6:
+        val = 'Spurs'
+    elif row['team_code'] == 7:
+        val = 'Aston Villa'
     elif row['team_code'] == 8:
         val = 'Chelsea'
-    elif row['team_code'] == 31:
-        val = 'Crystal Palace'
     elif row['team_code'] == 11:
         val = 'Everton'
-    elif row['team_code'] == 54:
-        val = 'Fulham'
-    elif row['team_code'] == 38:
-        val = 'Huddersfield'
     elif row['team_code'] == 13:
         val = 'Leicester'
     elif row['team_code'] == 14:
         val = 'Liverpool'
-    elif row['team_code'] == 43:
-        val = 'Man City'
-    elif row['team_code'] == 1:
-        val = 'Man Utd'
-    elif row['team_code'] == 4:
-        val = 'Newcastle'
     elif row['team_code'] == 20:
         val = 'Southampton'
-    elif row['team_code'] == 6:
-        val = 'Spurs'
-    elif row['team_code'] == 57:
-        val = 'Watford'
     elif row['team_code'] == 21:
         val = 'West Ham'
+    elif row['team_code'] == 31:
+        val = 'Crystal Palace'
+    elif row['team_code'] == 36:
+        val = 'Brighton'
+    elif row['team_code'] == 38:
+        val = 'Huddersfield'
     elif row['team_code'] == 39:
         val = 'Wolves'
+    elif row['team_code'] == 43:
+        val = 'Man City'
+    elif row['team_code'] == 45:
+        val = 'Norwich'
+    elif row['team_code'] == 49:
+        val = 'Sheffield Utd'
+    elif row['team_code'] == 54:
+        val = 'Fulham'
+    elif row['team_code'] == 57:
+        val = 'Watford'
+    elif row['team_code'] == 91:
+        val = 'Bournemouth'
+    elif row['team_code'] == 90:
+        val = 'Burnley'
+    elif row['team_code'] == 97:
+        val = 'Cardiff'
     else:
         val = 'Unknown'
     return val
+
+
+def map_team_19_20(row):
+    teams = ['Arsenal', 'Aston Villa', 'Bournemouth', 'Brighton', 'Burnley', 'Chelsea', 'Crystal Palace', 
+             'Everton', 'Leicester', 'Liverpool', 'Man City', 'Man Utd', 'Newcastle', 'Norwich', 
+             'Sheffield Utd', 'Southampton', 'Spurs', 'Watford', 'West Ham', 'Wolves']
+    idx = row['team_id']-1
+    return teams[idx]
 
 
 def map_code_to_str(row):
@@ -125,8 +141,88 @@ def map_code_to_str(row):
 def map_id_to_str(row):
     return str(row['id'])
 
+    
+def get_fixtures_data(base_path, season):
+    fix_path = base_path + "data/" + season + "/fixtures.csv"
+    df = pandas.read_csv(open(fix_path, 'r'))
+    df['team_id']=df['team_a']
+    df["team_a"] = df.apply(map_team_19_20, axis=1)
+    df['team_id']=df['team_h']
+    df["team_h"] = df.apply(map_team_19_20, axis=1)
+    return df[['code','event','started','finished','kickoff_time',
+               'team_h','team_h_score','team_h_difficulty',
+               'team_a','team_a_score','team_a_difficulty']]
 
-def get_player_data(base_path, player, season="2018-19", range_start=1, range_end=-1):
+
+def get_team_fixtures_data(team, base_path, season):
+    fix = get_fixtures_data(base_path, season)
+    fix = fix[(fix['team_h']==team) | (fix['team_a']==team)]
+    fix['is_home'] = fix['team_h']==team
+    fix['where'] = fix.apply(lambda row: 'H' if row.is_home else 'A', axis=1)
+    
+    opponents = []
+    difficulty = []
+    difficulty_other = []
+    scored = []
+    concieved = []
+    for x in range(0, len(fix)):
+        curr=fix.iloc[x]
+        opponents.append(curr['team_a'] if curr['is_home'] == True else curr['team_h'])
+        concieved.append(curr['team_a_score'] if curr['is_home'] == True else curr['team_h_score'])
+        scored.append(curr['team_h_score'] if curr['is_home'] == True else curr['team_a_score'])
+        difficulty.append(curr['team_h_difficulty'] if curr['is_home'] == True else curr['team_a_difficulty'])
+        difficulty_other.append(curr['team_a_difficulty'] if curr['is_home'] == True else curr['team_h_difficulty'])
+        
+    fix['opponent'] = opponents
+    fix['difficulty'] = difficulty
+    fix['difficulty_other'] = difficulty_other
+    fix['relative_difficulty']=fix.apply(calc_relative_difficulty, axis=1)
+    fix['scored'] = scored
+    fix['concieved'] = concieved
+    return fix[['code','event','started','finished','kickoff_time','is_home','where',
+                'opponent','difficulty','difficulty_other','relative_difficulty',
+                'scored','concieved']]
+    
+    
+def get_upcoming_fixtures_data(base_path, season):
+    df = get_fixtures_data(base_path, season)
+    df = df[df['started']==False]
+    return df[['code','event','kickoff_time','team_h','team_h_difficulty','team_a','team_a_difficulty']]
+
+
+def get_upcoming_fixtures_by_team(base_path, season,no_fixtures=6):
+    clubs = get_upcoming_fixtures_data(base_path, season)['team_a'].unique()
+    alldf=pandas.DataFrame()
+
+    for club in clubs:
+        df = get_upcoming_team_fixtures_data(club, base_path, season).head(no_fixtures)
+        df['team']=club
+
+        alldf = alldf.append(df)
+    return alldf
+
+
+def get_upcoming_team_fixtures_data(team, base_path, season):
+    df = get_team_fixtures_data(team, base_path, season)
+    df = df[df['started']==False]
+    return df[['code','event','kickoff_time','is_home','where','opponent','difficulty','difficulty_other','relative_difficulty']]
+
+
+def get_past_fixtures_data(base_path, season):
+    df = get_fixtures_data(base_path, season)
+    df = df[df['finished']==True]
+    return df[['code','event','kickoff_time',
+               'team_h','team_h_difficulty','team_h_score',
+               'team_a','team_a_score','team_a_difficulty']]
+
+
+def get_past_team_fixtures_data(team, base_path, season):
+    df = get_team_fixtures_data(team, base_path, season)
+    df = df[df['finished']==True]
+    return df[['code','event','kickoff_time','opponent','is_home','where',
+               'difficulty','difficulty_other','relative_difficulty','scored','concieved']]
+               
+def get_player_data(base_path, player, season, range_start=1, range_end=-1):
     pl_path = base_path + "data/" + season + "/players/" + player + "/gw.csv"
     df = pandas.read_csv(open(pl_path, 'r'))
     x = [x * 1 for x in range(1, len(df) + 1)]
@@ -138,7 +234,7 @@ def get_player_data(base_path, player, season="2018-19", range_start=1, range_en
     return df
 
 
-def get_cumulative_data(base_path, season="2018-19"):
+def get_cumulative_data(base_path, season):
     # all data csv path
     all_path = base_path + "data/" + season + "/players_raw.csv"
 
@@ -168,7 +264,7 @@ def get_cumulative_data(base_path, season="2018-19"):
 
     return alldf
 
-
+    
 def get_gameweek_data(base_path, season, curr_gw):
     df1 = pandas.DataFrame()
     for f in glob.glob(base_path + 'data/'+season+'/gws/gw*'):
@@ -190,90 +286,5 @@ def get_raw_data(base_path, season):
     df1["position"] = df1.apply(map_position, axis=1)
     df1 = df1.sort_values(['name'], ascending=True)
     return df1
-
-
-def get_aggregate_functions():
-    return ['average', 'median', 'sum', 'count', 'min', 'max']
-
-
-def get_features_for_aggregation():
-    return ['assists', 'attempted_passes', 'big_chances_created', 'big_chances_missed', 'bonus', 'bps',
-            'clean_sheets', 'clearances_blocks_interceptions', 'completed_passes', 'cost', 'creativity',
-            'dribbles', 'ea_index', 'errors_leading_to_goal', 'errors_leading_to_goal_attempt', 'fouls',
-            'goals_conceded', 'goals_scored', 'ict_index', 'influence', 'key_passes', 'loaned_in',
-            'loaned_out', 'minutes', 'offside', 'open_play_crosses', 'own_goals', 'penalties_conceded',
-            'penalties_missed', 'penalties_saved', 'recoveries', 'red_cards', 'saves', 'selected',
-            'tackled', 'tackles', 'target_missed', 'threat', 'total_points', 'transfers_balance',
-            'transfers_in', 'transfers_out', 'winning_goals', 'yellow_cards']
-
-
-def get_aggregate_features():
-    features = get_features_for_aggregation()
-    aggregates = get_aggregate_functions()
-
-    features_out = ['name_id', 'id', 'name']
-    for feature in features:
-        for aggregate in aggregates:
-            features_out.append(aggregate + "_" + feature)
-
-    return features_out
-
-
-def get_detailed_aggregate_data(base_path, season):
-    features_in = get_features_for_aggregation()
-    features_out = get_aggregate_features()
-
-    df_out = pandas.DataFrame(columns=features_out)
-    df_out.set_index('id')
-
-    for file in glob.glob(base_path + 'data/' + season + '/players/*/gw.csv'):
-        df_in = pandas.read_csv(file, encoding='latin_1')
-        df_in['value'] = df_in['value']/10
-        df_in.rename(columns={'value': 'cost'}, inplace=True)
-
-        element_id = df_in['element'][0]
-        name_id = file.replace('/', '\\').split('\\')[-2]
-        name = name_id[:int(name_id.rfind("_"))]
-        name = name.replace("_", " ")
-
-        features_out_dict = {}
-        for feature in features_in:
-            features_out_dict["average_" + feature] = df_in[feature].mean()
-            features_out_dict["median_" + feature] = df_in[feature].median()
-            features_out_dict["sum_" + feature] = df_in[feature].sum()
-            features_out_dict["count_" + feature] = df_in[feature].count()
-            features_out_dict["min_" + feature] = df_in[feature].min()
-            features_out_dict["max_" + feature] = df_in[feature].max()
-
-        features_out_dict['name_id'] = name_id
-        features_out_dict['id'] = element_id
-        features_out_dict['name'] = name
-        df_out.loc[name_id] = pandas.Series(features_out_dict)
-
-    df_out = df_out.fillna(0)
-    return df_out
-
-
-def calc_vpc(base_path, season, currgw):
-    # cleaned data - df1
-    df1 = get_raw_data(base_path, season)
-    df1['value'] = df1['now_cost']/10
-    df1['id_str'] = df1.apply(map_id_to_str, axis=1)
-    df1['display_name'] = df1['name']
-    df1['name'] = df1['name'] + ' ' + df1['id_str']
-    df1 = df1[['value', 'name', 'position', 'display_name']]
-
-    # data by gws for each player
-    df2 = get_gameweek_data(base_path, season, currgw)
-    df2 = df2[['name', 'bonus', 'bonus_weighted', 'bps', 'bps_weighted', 'total_points', 'total_points_weighted']]
-
-    # df2.to_csv('in.csv', sep='\t')
-    # group by player and calculate ratio
-    df2 = df2.groupby(['name']).mean()
-
-    # merge
-    df = pandas.merge(df1, df2, on='name', how='outer')
-    df['vpc_ratio'] = df['total_points'] / df['value']
-    df['vpc_ratio_weighted'] = df['total_points_weighted'] / df['value']
-
-    return df
+if os.name == 'nt':
+    sys._enablelegacywindowsfsencoding()
