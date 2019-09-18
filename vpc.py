@@ -148,3 +148,25 @@ def get_trace(df, position):
             "Value: %{y:.2f}</br>"+
             "Cost: %{x:.2f}£</br>"+
             "<extra></extra>")
+
+
+def main():
+    print('Fetching curr gameweek...')
+    URL = "https://fantasy.premierleague.com/api/bootstrap-static/"
+    DATA = requests.get(URL).json()
+    CURR_GW_OBJS = [x for x in DATA['events'] if x['is_current'] == True]
+    if len(CURR_GW_OBJS) == 0:
+        CURR_GW_OBJS = DATA['events']        
+    CURR_GW = CURR_GW_OBJS[-1]['id']
+    SEASON = '2019-20'
+    BASE_PATH = './scraper/'
+    
+    print('Generating VPC plot...')
+    vpc = calc_vpc(BASE_PATH, SEASON, CURR_GW)
+    fig = plot_vpc(vpc)
+    chart_studio.plotly.plot(fig, filename="vpc")
+    
+
+if __name__ == '__main__':
+    main()
+    

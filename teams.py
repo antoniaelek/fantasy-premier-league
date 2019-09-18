@@ -187,3 +187,28 @@ def form_plot(season, base_path, data, no_fixtures=6,limit_form=-10):
     fig.layout.update(plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)')
     chart_studio.plotly.plot(fig, filename="club_form")
     #plotly.offline.iplot(fig)
+
+
+def main():
+    print('Fetching curr gameweek...')
+    URL = "https://fantasy.premierleague.com/api/bootstrap-static/"
+    DATA = requests.get(URL).json()
+    CURR_GW_OBJS = [x for x in DATA['events'] if x['is_current'] == True]
+    if len(CURR_GW_OBJS) == 0:
+        CURR_GW_OBJS = DATA['events']        
+    CURR_GW = CURR_GW_OBJS[-1]['id']
+    SEASON = '2019-20'
+    BASE_PATH = './scraper/'
+    
+    print('Generating teams fixtures plot...')
+    fix = next_fixtures(SEASON, BASE_PATH, no_fixtures=4)
+    next_fixtures_plot(SEASON, BASE_PATH, fix,limit_diff=10)
+    
+    print('Generating teams form plot...')
+    df_form = form(SEASON, BASE_PATH, no_fixtures=4)
+    form_plot(SEASON, BASE_PATH, df_form, limit_form=1.5)
+    
+
+if __name__ == '__main__':
+    main()
+    

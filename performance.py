@@ -320,3 +320,35 @@ def fwd_plot(df):
     points_fwd['goals_conceded'] = 0
 
     generate_performance_plots(points_fwd, df, 'Forward')
+
+
+def main():
+    print('Fetching curr gameweek...')
+    URL = "https://fantasy.premierleague.com/api/bootstrap-static/"
+    DATA = requests.get(URL).json()
+    CURR_GW_OBJS = [x for x in DATA['events'] if x['is_current'] == True]
+    if len(CURR_GW_OBJS) == 0:
+        CURR_GW_OBJS = DATA['events']        
+    CURR_GW = CURR_GW_OBJS[-1]['id']
+    SEASON = '2019-20'
+    BASE_PATH = './scraper/'
+    
+    print('Getting performance data...')
+    df=get_performance_data(SEASON, BASE_PATH)
+
+    print('Generating goalkeepers performance plot...')
+    gk_plot(df[df.position == 'Goalkeeper'])
+    
+    print('Generating defenders performance plot...')
+    def_plot(df[df.position == 'Defender'])
+    
+    print('Generating midfielders performance plot...')
+    mid_plot(df[df.position == 'Midfielder'])
+    
+    print('Generating forwards performance plot...')
+    fwd_plot(df[df.position == 'Forward'])
+        
+
+if __name__ == '__main__':
+    main()
+    

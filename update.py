@@ -58,14 +58,15 @@ def main():
     fig = plot_vpc(vpc)
     chart_studio.plotly.plot(fig, filename="vpc")
     
-    print('Generating team fixtures plot...')
+    print('Generating teams fixtures plot...')
     fix = next_fixtures(SEASON, BASE_PATH, no_fixtures=4)
     next_fixtures_plot(SEASON, BASE_PATH, fix,limit_diff=10)
     
-    print('Generating team form plot...')
+    print('Generating teams form plot...')
     df_form = form(SEASON, BASE_PATH, no_fixtures=4)
     form_plot(SEASON, BASE_PATH, df_form, limit_form=1.5)
     
 
 if __name__ == '__main__':
     main()
+    
