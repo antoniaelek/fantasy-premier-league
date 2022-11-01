@@ -1,7 +1,9 @@
 from functions import get_raw_data
 from functions import get_gameweek_data
 from functions import map_id_to_str
+from decouple import config
 
+import numpy
 import os
 import requests
 import pandas
@@ -98,23 +100,32 @@ def calc_vpc(base_path, season, currgw):
     df1['value'] = df1['now_cost']/10
     df1['id_str'] = df1.apply(map_id_to_str, axis=1)
     df1['display_name'] = df1['name']
-    df1['name'] = df1['name'] + ' ' + df1['id_str']
+    # df1['name'] = df1['name'] + ' ' + df1['id_str']
     df1 = df1[['value', 'name', 'position', 'display_name']]
 
     # data by gws for each player
     df2 = get_gameweek_data(base_path, season, currgw)
-    df2 = df2[['name', 'bonus', 'bonus_weighted', 'bps', 'bps_weighted', 'total_points', 'total_points_weighted']]
+    df2 = df2[['value', 'name', 'bonus', 'bonus_weighted', 'bps', 'bps_weighted', 'total_points', 'total_points_weighted']]
 
     # df2.to_csv('in.csv', sep='\t')
     # group by player and calculate ratio
+
+    df2['total_points'] = df2['total_points'].apply(pandas.to_numeric, downcast='float', errors='coerce')
+    df2['total_points'] = df2['total_points'].astype(float)
+    df2['bps'] = df2['bps'].apply(pandas.to_numeric, downcast='float', errors='coerce')
+    df2['bonus'] = df2['bonus'].apply(pandas.to_numeric, downcast='float', errors='coerce')
+
     df2 = df2.groupby(['name']).mean()
 
     # merge
     df = pandas.merge(df1, df2, on='name', how='outer')
     df['vpc_ratio'] = df['total_points'] / df['value']
-    df['vpc_ratio_weighted'] = df['total_points_weighted'] / df['value']
+    df['vpc_ratio_weighted'] = df['total_points_weighted'] * 100 / df['value']
 
-    return df
+    df.replace([numpy.inf, -numpy.inf], numpy.nan, inplace=True)
+    df = df.fillna(0)
+    
+    return df[df.vpc_ratio > 0]
 
 
 def map_position_to_color(position):
@@ -158,8 +169,11 @@ def main():
     if len(CURR_GW_OBJS) == 0:
         CURR_GW_OBJS = DATA['events']        
     CURR_GW = CURR_GW_OBJS[-1]['id']
-    SEASON = '2019-20'
     BASE_PATH = './scraper/'
+    SEASON = '2022-23'
+    CHARTS_USER = config('CHARTS_USER')
+    CHARTS_API_KEY = config('CHARTS_API_KEY')
+    chart_studio.tools.set_credentials_file(username=CHARTS_USER, api_key=CHARTS_API_KEY)
     
     print('Generating VPC plot...')
     vpc = calc_vpc(BASE_PATH, SEASON, CURR_GW)

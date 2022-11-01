@@ -330,8 +330,11 @@ def main():
     if len(CURR_GW_OBJS) == 0:
         CURR_GW_OBJS = DATA['events']        
     CURR_GW = CURR_GW_OBJS[-1]['id']
-    SEASON = '2019-20'
+    SEASON = '2022-23'
     BASE_PATH = './scraper/'
+    CHARTS_USER = config('CHARTS_USER')
+    CHARTS_API_KEY = config('CHARTS_API_KEY')
+    chart_studio.tools.set_credentials_file(username=CHARTS_USER, api_key=CHARTS_API_KEY)
     
     print('Getting performance data...')
     df=get_performance_data(SEASON, BASE_PATH)

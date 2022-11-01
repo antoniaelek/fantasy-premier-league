@@ -13,13 +13,26 @@
 
 ## Getting started
 
+Clone the repository and submodules
+
 ```
 git clone --recurse-submodules https://github.com/antoniaelek/fantasy-premier-league.git
+```
+
+Setup python environment
+
+```
 cd ./fantasy-premier-league
 mkdir env
 py -m venv ./env
 ./env/Scripts/activate
 pip install -r requirements.txt
+```
+
+Create .env file in repository root with the following contents (replace [CHANGEME] placeholder with your own values)
+```
+CHARTS_API_KEY=[CHANGEME]
+CHARTS_USER=[CHANGEME]
 ```
 
 ## Updating submodules
