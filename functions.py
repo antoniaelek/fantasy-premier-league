@@ -221,6 +221,7 @@ def get_past_team_fixtures_data(team, base_path, season):
     df = df[df['finished']==True]
     return df[['code','event','kickoff_time','opponent','is_home','where',
                'difficulty','difficulty_other','relative_difficulty','scored','concieved']]
+        
                
 def get_player_data(base_path, player, season, range_start=1, range_end=-1):
     pl_path = base_path + "data/" + season + "/players/" + player + "/gw.csv"
@@ -286,5 +287,6 @@ def get_raw_data(base_path, season):
     df1["position"] = df1.apply(map_position, axis=1)
     df1 = df1.sort_values(['name'], ascending=True)
     return df1
+
 if os.name == 'nt':
     sys._enablelegacywindowsfsencoding()
