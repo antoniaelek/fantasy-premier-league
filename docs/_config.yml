@@ -23,8 +23,8 @@ description: Because out of all the unimportant things, football is the most imp
 navbar-links:
   Home: ""
   Value vs Cost: "value-cost"
-  By Team: "teams"
-  By Position:
+  Top Picks: "top-picks"
+  Top Players by Position:
     - Goalkeepers: "goalkeepers"
     - Defenders: "defenders"
     - Midfielders: "midfielders"
