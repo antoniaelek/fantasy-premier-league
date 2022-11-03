@@ -248,7 +248,7 @@ def main():
     
     # Overall FPL league ID is 314
     OVERALL_LEAGUE_ID = 314
-    TOP_N = 10
+    TOP_N = 25
     BASE_PATH = './scraper/'
     SEASON = '2022-23'
 
