@@ -1,7 +1,7 @@
 name: update-data
-on: workflow_dispatch
-  # schedule:
-  #   - cron: "30 00 * * *"
+on:
+  schedule:
+    - cron: "30 00 * * *"
 jobs:
   update_data:
     runs-on: ubuntu-latest
@@ -31,7 +31,6 @@ jobs:
           touch .env
           echo "CHARTS_API_KEY=$CHARTS_API_KEY" >> .env
           echo "CHARTS_USER=$CHARTS_USER" >> .env
-          cat .env | sed 's/./& /g'
       - name: Update top picks
         run: |
           python managers.py
