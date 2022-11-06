@@ -34,10 +34,20 @@ jobs:
           CHARTS_API_KEY: ${{ secrets.CHARTS_API_KEY }}
           CHARTS_USER: ${{ secrets.CHARTS_USER }}
         run: |
-          ls -al
           touch .env
           echo $CHARTS_API_KEY >> .env
-          echo $CHARTS_USER >> .env        
+          echo $CHARTS_USER >> .env
+          ls -al
+          cat .env
       - name: Update top picks
         run: |
           python managers.py
+      # - name: Update VPC
+      #   run: |
+      #     python vpc.py
+      # - name: Update Performance
+      #   run: |
+      #     python performance.py
+      # - name: Update Teams
+      #   run: |
+      #     python teams.py
