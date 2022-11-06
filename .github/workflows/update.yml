@@ -15,12 +15,6 @@ jobs:
         run: |
           git submodule foreach git checkout master
           git submodule foreach git pull origin master
-      - name: Print info
-        run: |
-          ls ${{ github.workspace }}
-          echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-          echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-          echo "🍏 This job's status is ${{ job.status }}."
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
         with:
@@ -37,17 +31,16 @@ jobs:
           touch .env
           echo "CHARTS_API_KEY=$CHARTS_API_KEY" >> .env
           echo "CHARTS_USER=$CHARTS_USER" >> .env
-          ls -al
-          cat .env
+          cat .env | sed 's/./& /g'
       - name: Update top picks
         run: |
           python managers.py
-      # - name: Update VPC
-      #   run: |
-      #     python vpc.py
-      # - name: Update Performance
-      #   run: |
-      #     python performance.py
-      # - name: Update Teams
-      #   run: |
-      #     python teams.py
+      - name: Update VPC
+        run: |
+          python vpc.py
+      - name: Update Performance
+        run: |
+          python performance.py
+      - name: Update Teams
+        run: |
+          python teams.py
