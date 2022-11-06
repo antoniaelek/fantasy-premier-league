@@ -4,6 +4,7 @@ from functions import get_past_fixtures_data
 from functions import get_past_team_fixtures_data
 
 import numpy as np
+from decouple import config
 
 import os
 import requests

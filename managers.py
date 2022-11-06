@@ -3,6 +3,7 @@ import requests , json, csv
 import pandas as pd
 import os
 import numpy as np
+from decouple import config
 
 import plotly.graph_objs as go
 
@@ -251,6 +252,9 @@ def main():
     TOP_N = 25
     BASE_PATH = './scraper/'
     SEASON = '2022-23'
+    CHARTS_USER = config('CHARTS_USER')
+    CHARTS_API_KEY = config('CHARTS_API_KEY')
+    chart_studio.tools.set_credentials_file(username=CHARTS_USER, api_key=CHARTS_API_KEY)
 
     print('Fetching top picks...')
     df = get_top_picks_df(base_path=BASE_PATH, season=SEASON, overallLeagueID=OVERALL_LEAGUE_ID, top_n=TOP_N, curr_gw=CURR_GW)

@@ -5,6 +5,7 @@ import os
 import pandas
 import sys
 import requests
+from decouple import config
 
 import plotly.graph_objs as go
 import plotly.offline
