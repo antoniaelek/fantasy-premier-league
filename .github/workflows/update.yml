@@ -35,8 +35,8 @@ jobs:
           CHARTS_USER: ${{ secrets.CHARTS_USER }}
         run: |
           touch .env
-          echo $CHARTS_API_KEY >> .env
-          echo $CHARTS_USER >> .env
+          echo "CHARTS_API_KEY=$CHARTS_API_KEY" >> .env
+          echo "CHARTS_USER=$CHARTS_USER" >> .env
           ls -al
           cat .env
       - name: Update top picks
