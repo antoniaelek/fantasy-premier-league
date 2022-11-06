@@ -3,9 +3,6 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
   schedule:
     - cron: "30 00 * * *"
-  push:
-    branches:
-      - 'master'
 jobs:
   Update Data:
     runs-on: ubuntu-latest
