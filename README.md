@@ -1,9 +1,7 @@
 # Fantasy Premier League Stats, Visualizations &amp; Analysis
 
 ## Features
-  - Teams Analysis
-    - Teams with easiest schedule
-    - In-form teams  
+  - Top Managers' Picks Analysis
   - Value vs Cost Analysis
   - Player Position Analysis
     - Goalkeepers ranked by achievements and errors
